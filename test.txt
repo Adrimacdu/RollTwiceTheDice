@@ -1,0 +1,106 @@
+'use strict'
+
+// CREACION DE FORMULARIO LOGIN
+
+let login = document.createElement('div')
+
+login.style.width = '400px'
+login.style.height = '400px'
+login.style.border = '1px solid black'
+login.id = 'form_login'
+
+let form = document.createElement('form')
+
+let inputEmail = document.createElement('input')
+
+inputEmail.id = 'email'
+inputEmail.placeholder = 'Introducir email'
+inputEmail.type = 'email'
+inputEmail.style.width = '250px'
+inputEmail.style.margin = '10px auto'
+inputEmail.style.padding = '20px'
+
+let labelEmail = document.createElement('label')
+
+labelEmail.for = 'email'
+labelEmail.textContent= 'Email'
+
+let inputPassword = document.createElement('input')
+
+inputPassword.id = 'password'
+inputPassword.placeholder = 'Introduce contraseña'
+inputPassword.type = 'password'
+inputPassword.style.width = '250px'
+inputPassword.style.margin = '10px auto'
+inputPassword.style.padding = '20px'
+
+let labelPassword = document.createElement('label')
+
+labelPassword.for = 'password'
+labelPassword.textContent = 'Password'
+
+form.appendChild(labelEmail)
+form.appendChild(inputEmail)
+form.appendChild(document.createElement('br'))
+form.appendChild(labelPassword)
+form.appendChild(inputPassword)
+
+form.style.display = 'flex'
+form.style.flexDirection = 'column'
+form.style.marginTop = '40px'
+
+let button = document.createElement('button')
+button.style.padding = '25px'
+button.style.width = '180px'
+button.style.margin = '20px auto'
+button.textContent = 'Log In'
+
+
+button.addEventListener('click',function(event){
+
+    event.preventDefault()
+
+    let opciones = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: inputEmail.value,
+            password: inputPassword.value
+        })
+    }
+
+    fetch('http://localhost:8888/api/auth/jwt/create/', opciones)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        })
+        .then(data => {        
+        localStorage.setItem('access_token', data['access']);
+        localStorage.setItem('refresh_roken', data['refresh'])
+        
+        console.log('Inicio de sesión exitoso');
+        borrar_login()
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        });
+        
+})
+
+form.appendChild(button)
+
+
+login.appendChild(form)
+
+login.style.textAlign ='center'
+login.style.margin = 'auto'
+
+document.body.appendChild(login)
+
+function borrar_login(){
+    document.body.removeChild(document.getElementById('form_login'))
+    botonera()
+}
