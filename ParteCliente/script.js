@@ -1,6 +1,6 @@
 'use strict';
 // HEADER LOGIN
-function pintarHeader(){
+function pintarHeader_login(){
     let header = document.createElement('div');
     header.id = 'header';
     
@@ -57,7 +57,7 @@ function pintarFooter(){
 }
 // FORMULARIO LOGIN
 
-pintarHeader();
+pintarHeader_login();
 
     let login_div = document.createElement('div');
     login_div.id = 'div_login';
@@ -110,6 +110,52 @@ function borrar_login(){
     main.removeChild(document.getElementById('footer'));
     pintar_inicio();
 }
+
+function pintarHeader(){
+    let header = document.createElement('div');
+    header.id = 'header';
+    
+    
+    let div_nav_header = document.createElement('div');
+    div_nav_header.id = 'div_nav_header';
+    
+    
+    let div_img = document.createElement('figure');
+    
+    div_img.style.margin = '0 10%';
+    
+    let img  = document.createElement('img');
+    img.src = './recursos/images/logo.png';
+    
+    // div con el h2 + el icono el perfil
+
+    let ul_h2_icono = document.createElement('ul');
+    ul_h2_icono.id = 'h2_icono';
+
+    let li_h2 = document.createElement('li');
+    let li_icono = document.createElement('li');
+
+    ul_h2_icono.appendChild(li_h2);
+    ul_h2_icono.appendChild(li_icono);
+
+    let h2_header = document.createElement('h2');
+    h2_header.textContent = 'Mi perfil';
+    h2_header.id = 'h2_header';
+
+    li_h2.appendChild(h2_header);
+    
+    let icono_perfil = document.createElement('i');
+    icono_perfil.className = 'fas fa-user profile-icon'
+
+    li_icono.appendChild(icono_perfil);
+
+    div_img.appendChild(img);
+    div_nav_header.appendChild(div_img);
+    div_nav_header.appendChild(ul_h2_icono);
+    header.appendChild(div_nav_header);
+    
+    document.getElementById('main').appendChild(header);
+}
 function pintar_inicio() {
  pintarHeader();
  let h1 = document.createElement('h1');
@@ -152,6 +198,5 @@ fetch('http://localhost:8000/api/auth/jwt/create/', opciones)
         console.error('Error:', error);
         });
 };
-// COMPROBAR QUE EL LOGIN FUNCIONA
 // PINTAR PAGINA DE INICIO TRAS EL LOGIN Y MODIFICAR HEADER DESDE LA FUNCION BORRAR_LOGIN(O BIEN BORRAR HEADER Y CREARLO NUEVO CON OTRA FUNCION)
 // AGREGAR FORMULARIO DE REGISTRO AL CLICKAR EN EL HEADER "REGISTRATE"

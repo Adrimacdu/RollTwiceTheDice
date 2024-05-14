@@ -18,15 +18,19 @@
     background: #212121;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 #h2_header{
     align-self: center;
-    margin-left: 20%;
     color: white;
     text-decoration: underline;
     font-size: 46px;
 }
+
+/*
+    FIN HEADER LOGIN
+*/
 
 /*
     DIV LOGIN
@@ -78,9 +82,12 @@
     margin: 30px auto;
     font-size: 20px;
 }
+/*
+    FIN LOGIN
+*/
 
 /*
-    FOOTER LOGIN
+    FOOTER
 */
 
 #footer{
@@ -115,4 +122,34 @@
     align-self: center;
     color: white;
     font-size: 26px;
+}
+
+/*
+    FIN FOOTER
+*/
+
+/*
+    HEADER LOGGED
+*/
+
+#h2_icono{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    align-self: center;
+}
+
+#h2_icono li {
+    align-self: center;
+    margin: auto 20px;
+}
+
+#h2_icono li h2 {
+    text-decoration: none;
+}
+
+.profile-icon{
+    color:white;
+    scale: 2.5;
 }
