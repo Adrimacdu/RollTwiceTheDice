@@ -18,6 +18,9 @@ function pintarHeader_login(){
     let h2_header = document.createElement('h2');
     h2_header.textContent = 'Regístrate';
     h2_header.id = 'h2_header';
+
+    //Registro Usuarios Header
+    h2_header.addEventListener('click', pintar_registro);
     
     div_img.appendChild(img);
     div_nav_header.appendChild(div_img);
@@ -108,7 +111,73 @@ function borrar_login(){
     main.removeChild(document.getElementById('footer'));
     pintar_inicio();
 }
+function pintar_registro(){
 
+        event.preventDefault();
+
+        let main = document.getElementById('main');
+
+        main.removeChild(document.getElementById('div_login'));
+        main.removeChild(document.getElementById('footer'));
+        
+        let login_div = document.createElement('div');
+        login_div.id = 'div_login';
+        
+        let form_div = document.createElement('div');
+        form_div.id = 'div_form_login';
+        
+        let form_registro = document.createElement('form');
+        form_registro.id = 'form_login';
+
+        let h1_registro = document.createElement('h1');
+        h1_registro.textContent = 'Formulario de Registro';
+        
+        let inputEmail_registro = document.createElement('input');
+        inputEmail_registro.id='email';
+        inputEmail_registro.type = 'email';
+        
+        let labelEmail_registro = document.createElement('label');
+        labelEmail_registro.for = 'email';
+        labelEmail_registro.textContent = 'Email';
+
+        let inputPassword_registro = document.createElement('input');
+        inputPassword_registro.id='password_registro';
+        inputPassword_registro.type = 'text';
+        
+        let labelPassword_registro = document.createElement('label');
+        labelPassword_registro.for = 'password_registro';
+        labelPassword_registro.textContent = 'Password';
+
+        let inputUser_registro = document.createElement('input');
+        inputUser_registro.id='user_registro';
+        inputUser_registro.type = 'text';
+        
+        let labelUser_registro = document.createElement('label');
+        labelUser_registro.for = 'user_registro';
+        labelUser_registro.textContent = 'Nombre de usuario';
+
+        let button_registro = document.createElement('button')
+        button_registro.textContent = 'Registrarme';
+
+
+        form_registro.appendChild(h1_registro);
+        form_registro.appendChild(labelEmail_registro);
+        form_registro.appendChild(inputEmail_registro);
+        form_registro.appendChild(labelUser_registro);
+        form_registro.appendChild(inputUser_registro);
+        form_registro.appendChild(labelPassword_registro);
+        form_registro.appendChild(inputPassword_registro);
+        form_registro.appendChild(button_registro);
+
+        form_div.appendChild(form_registro);
+        login_div.appendChild(form_div);
+        main.appendChild(login_div);
+
+        pintarFooter();
+}
+function crear_usuario(){
+    
+}
 function pintarHeader(){
     let header = document.createElement('div');
     header.id = 'header';
