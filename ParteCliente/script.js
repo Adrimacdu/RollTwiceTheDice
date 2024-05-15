@@ -11,8 +11,6 @@ function pintarHeader_login(){
     
     let div_img = document.createElement('figure');
     
-    div_img.style.margin = '0 10%';
-    
     let img  = document.createElement('img');
     img.src = './recursos/images/logo.png';
     
