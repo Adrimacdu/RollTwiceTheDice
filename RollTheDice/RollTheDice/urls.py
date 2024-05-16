@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet
+from Usuarios.api.views import MyUserListViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-
+## RUTAS API DEL POST
 router.register(r'post_list', PostListViewSet, basename='post_list')
-
+## RUTAS API DE USUARIOS
+router.register(r'user_list', PostListViewSet, basename='user_list')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls')),

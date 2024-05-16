@@ -277,3 +277,27 @@ fetch('http://localhost:8000/api/auth/jwt/create/', opciones)
                         //  -> EDICION DEL PERFIL
                         //  -> PANEL DE ADMINISTRACION DE PARTIDAS
                         //  -> PANEL DE LOGROS DESBLOQUEADOS
+
+                        /**
+                         * Ejemplo creacion Usuario
+                         * 
+                         * const valores = {
+                         *      email: document.getElementById('id_input').value,
+                         *      username: document.getElementById('id_input').value,
+                         *      password: document.getElementById('id_input').value,
+                         * }
+                         * 
+                         * const opciones = {
+                         *      method: 'POST',
+                         *      headers : {
+                         *          'Authorization': 'JWT' + localStorage.getItem('access_token'),
+                         *          'Content-type': 'aplication/json'
+                         *      },
+                         *      body: JSON.stringify(valores)
+                         * }
+                         * 
+                         * fetch(url/api/MyUser_detail/ , opciones){
+                         *      
+                         *          (....)
+                         * }
+                         */

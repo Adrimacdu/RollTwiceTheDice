@@ -57,3 +57,7 @@ class MyUser(AbstractBaseUser):
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app app_label?"
         return True
+
+    def __str__(self):
+        return self.id + " ---- " + self.email + " ---- " + self.username + " ---- " + self.create_date
+    
