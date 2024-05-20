@@ -25,11 +25,12 @@ router = routers.DefaultRouter()
 ## RUTAS API DEL POST
 router.register(r'post_list', PostListViewSet, basename='post_list')
 ## RUTAS API DE USUARIOS
-router.register(r'user_list', PostListViewSet, basename='user_list')
+router.register(r'user_list', MyUserListViewSet, basename='user_list')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
     path('api/', include(router.urls), name='api'),
+    path('auth/', include('djoser.urls')),
 ]
 

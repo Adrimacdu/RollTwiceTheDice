@@ -5,14 +5,12 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, first_name=None, last_name=None, password=None, type=None):
+    def create_user(self, email, password=None, type=None):
         if not email:
             raise ValueError("Ha de proporcionar un e-mail válido")
 
         user = self.model(
-            email=self.normalize_email(email),
-            first_name=first_name,
-            last_name=last_name,
+            email=self.normalize_email(email)
         )
 
         user.is_active = True
@@ -36,11 +34,10 @@ class MyUserManager(BaseUserManager):
 class MyUser(AbstractBaseUser):
     username= models.CharField(max_length=30,null=True)
     email=models.EmailField(verbose_name="email address",max_length=255,unique=True)
-    activo=models.BooleanField(default=True)
     create_date=models.DateTimeField(auto_now_add=True)
     update_date=models.DateTimeField(auto_now=True)
     is_staff=models.BooleanField(default=False)
-    is_active=models.BooleanField(default=False)
+    is_active=models.BooleanField(default=True)
 
     objects = MyUserManager()
 
@@ -59,5 +56,5 @@ class MyUser(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return self.id + " ---- " + self.email + " ---- " + self.username + " ---- " + self.create_date
+        return str(self.id) + " ---- " + str(self.email) + " ---- " + str(self.username) 
     

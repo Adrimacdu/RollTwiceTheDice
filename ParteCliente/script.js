@@ -241,8 +241,8 @@ function login (){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: inputEmail.value,
-            password: inputPassword.value
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
         })
     };
 

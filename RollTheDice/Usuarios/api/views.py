@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from Usuarios.models import *
+from Usuarios.models import MyUser
 from rest_framework import viewsets, mixins, filters, views
-from Posts.api.Serializers import PostListSerializer
+from Usuarios.api.serializers import MyUserListSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 # Create your views here.
@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 class MyUserListViewSet( mixins.ListModelMixin,
                     viewsets.GenericViewSet):
-    model= Post
+    model= MyUser
     serializer_class = MyUserListSerializer
     pagination_class = None
     ordering = 'id'
@@ -17,4 +17,3 @@ class MyUserListViewSet( mixins.ListModelMixin,
     ordering_fields = ['email', 'username']
     search_fields = ['email']
     queryset = MyUser.objects.all()
-    permission_classes = [IsAdminUser]
