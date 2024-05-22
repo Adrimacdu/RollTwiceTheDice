@@ -21,6 +21,13 @@
     justify-content: space-around;
 }
 
+#h2_logoff{
+    align-self: center;
+    color: white;
+    text-decoration: underline;
+    font-size: 46px;
+}
+
 #h2_header{
     align-self: center;
     color: white;
@@ -152,4 +159,75 @@
 .profile-icon{
     color:white;
     scale: 2.5;
+}
+
+/*
+
+    FIN HEADER LOGGED
+
+*/
+
+/*
+
+    PAGINA INICIO
+
+*/
+
+#fondo_inicio{
+    background: #D9D9D9;
+    padding: 10px 10px;
+    margin: 10px;
+}
+
+#div_inicio{
+    padding: 10px 10px;
+    width: 100%;
+    background: #212121;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#div_inicio h1{
+    color: white;
+    padding: 20px;
+    font-size: 48px;
+}
+
+#div_filtros{
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#div_filtros select{
+    padding: 20px;
+    width: 250px;
+    margin: 0 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#botonera {
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#botonera button{
+    padding: 20px;
+    width: 250px;
+    margin: 0 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#listado_posts{
+    background: #D9D9D9;
+    margin: 10px;
+    width: 98%;
+    height: 200px;
 }

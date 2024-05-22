@@ -5,24 +5,26 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, password=None, type=None):
+    def create_user(self, email, name, password=None, type=None):
         if not email:
             raise ValueError("Ha de proporcionar un e-mail válido")
 
         user = self.model(
-            email=self.normalize_email(email)
+            email=self.normalize_email(email),
+            name=name
         )
-
+        user.name = name
         user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, name, password):
         if not email:
             raise ValueError("Ha de proporcionar un e-mail válido")
 
-        user = self.model(email=self.normalize_email(email))
+        user = self.model(email=self.normalize_email(email),
+                            name=name)
 
         user.set_password(password)
         user.is_staff = True
@@ -32,7 +34,7 @@ class MyUserManager(BaseUserManager):
         return user
 
 class MyUser(AbstractBaseUser):
-    username= models.CharField(max_length=30,null=True)
+    name= models.CharField(max_length=30,null=True)
     email=models.EmailField(verbose_name="email address",max_length=255,unique=True)
     create_date=models.DateTimeField(auto_now_add=True)
     update_date=models.DateTimeField(auto_now=True)
@@ -42,7 +44,7 @@ class MyUser(AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['name']
 
     def str(self):
         return self.email
@@ -56,5 +58,5 @@ class MyUser(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return str(self.id) + " ---- " + str(self.email) + " ---- " + str(self.username) 
+        return str(self.id) + " ---- " + str(self.email) + " ---- " + str(self.name) 
     

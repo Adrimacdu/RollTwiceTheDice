@@ -7,12 +7,13 @@ class MyUserListSerializer(serializers.ModelSerializer):
         fields = (
             'email',
             'password',
+            'name'
         )
 
-class MyUserManagerListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MyUserManager
-        fields = (
-            'email',
-            'password',
+    def create(self, validated_data):
+        user = MyUser.objects.create_user(
+            email=validated_data['email'],
+            username=validated_data['name'],
+            password=validated_data['password']
         )
+

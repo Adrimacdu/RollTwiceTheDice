@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt'
 ]
 
+DJOSER = {
+    'ACTIVATION_REQUIRED': False,
+}
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kubernetes.docker.internal']
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT','Bearer'),
@@ -60,7 +65,10 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }
 
 CORS_ALLOWED_ORIGINS = [

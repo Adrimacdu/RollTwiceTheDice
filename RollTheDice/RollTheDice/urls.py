@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet
-from Usuarios.api.views import MyUserListViewSet
+from Usuarios.api.views import MyUserListViewSet, CreateUserView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -32,5 +32,6 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.jwt')),
     path('api/', include(router.urls), name='api'),
     path('auth/', include('djoser.urls')),
+    path('auth/users/', CreateUserView.as_view(), name='create_user'),
 ]
 
