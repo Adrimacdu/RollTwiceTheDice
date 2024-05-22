@@ -5,6 +5,12 @@ class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = (
-            'id',
-            '__str__',
+            '__all__'
+        )
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = (
+            '__all__'
         )

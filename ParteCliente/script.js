@@ -188,6 +188,7 @@ function pintarHeader(){
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         reseteo_header_footer();
+        document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
         pintarHeader_login();
         pintar_login();
         pintarFooter();
@@ -230,7 +231,7 @@ pintarHeader();
     div_filtros.id = 'div_filtros';
 
     let filtro1 = document.createElement('select');
-    filtro1.id = 'filtro';
+    filtro1.id = 'filtro1';
     let filtro1_sinSeleccionar = document.createElement('option');
     filtro1_sinSeleccionar.textContent = 'Elige dificultad';
     let filtro1_opcion1 = document.createElement('option');
@@ -249,7 +250,7 @@ pintarHeader();
     filtro1.appendChild(filtro1_opcion4);
 
     let filtro2 = document.createElement('select');
-    filtro2.id = 'filtro';
+    filtro2.id = 'filtro2';
     let filtro2_sinSeleccionar = document.createElement('option');
     filtro2_sinSeleccionar.textContent = 'Tipo de juego';
     let filtro2_opcion1 = document.createElement('option');
@@ -295,11 +296,70 @@ pintarHeader();
 
 pintarFooter();
 }
+function recoger_datos_usuario() {
 
+    let arrayUser;
+
+    event.preventDefault();
+
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/auth/users/me/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); 
+            arrayUser.push(data.id);
+            arrayUser.push(data.email);
+            arrayUser.push(data.name);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    return arrayUser;
+}
 function pintar_form_posts(){
     reseteo_header_footer();
-}
+    pintarHeader();
+    document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
 
+
+    let array_user = recoger_datos_usuario()
+
+    let fondo_form_post = document.createElement('div');
+    fondo_form_post.id = 'fondo_form_post';
+
+    let div_form_post = document.createElement('div');
+    div_form_post.id = 'div_form_post';
+
+    let form_post = document.createElement('form');
+    form_post.id = 'form_post';
+
+    let h1_crear_post = document.createElement('h1');
+    h1_crear_post.textContent = 'Creación de partida';
+
+
+    let crear_partida = document.createElement('button');
+    crear_partida.textContent = 'Crear';
+    crear_partida.addEventListener('click', );
+
+
+
+    form_post.appendChild(crear_partida);
+    div_form_post.appendChild(form_post);
+    fondo_form_post.appendChild(h1_crear_post);
+    fondo_form_post.appendChild(div_form_post);
+    document.getElementById('main').appendChild(fondo_form_post);
+
+    pintarFooter();
+}
 function pintar_login(){
     let login_div = document.createElement('div');
         login_div.id = 'div_login';
@@ -343,7 +403,6 @@ function pintar_login(){
         
         document.getElementById('main').appendChild(login_div);
 };
-
 function login (){
         
     console.log()
@@ -370,6 +429,7 @@ function login (){
             }
             })
             .then(data => {     
+            console.log(data);
             localStorage.setItem('access_token', data['access']);
             localStorage.setItem('refresh_roken', data['refresh']);
             
@@ -380,7 +440,6 @@ function login (){
             console.error('Error:', error);
             });
 };
-
 if(localStorage.getItem('access_token') == null){
 
     pintarHeader_login();
