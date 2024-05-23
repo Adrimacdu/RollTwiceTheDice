@@ -1,5 +1,5 @@
 'use strict';
-
+let datosUser;
 function pintarHeader_login(){
     let header = document.createElement('div');
     header.id = 'header';
@@ -173,22 +173,27 @@ function pintarHeader(){
     let ul_h2_icono = document.createElement('ul');
     ul_h2_icono.id = 'h2_icono';
 
-    let log_off = document.createElement('li')
+    let log_out = document.createElement('li')
     let li_h2 = document.createElement('li');
     let li_icono = document.createElement('li');
 
-    ul_h2_icono.appendChild(log_off);
+    ul_h2_icono.appendChild(log_out);
     ul_h2_icono.appendChild(li_h2);
     ul_h2_icono.appendChild(li_icono);
 
-    let logoff_text = document.createElement('h2');
-    logoff_text.textContent = 'Desconectar';
-    logoff_text.id = 'h2_logoff';
-    logoff_text.addEventListener('click', function(){
+    let log_out_text = document.createElement('h2');
+    log_out_text.textContent = 'Desconectar';
+    log_out_text.id = 'h2_log_out';
+    log_out_text.addEventListener('click', function(){
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         reseteo_header_footer();
-        document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+        if(document.getElementById('fondo_inicio')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+        }
+        if(document.getElementById('fondo_form_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
+        }
         pintarHeader_login();
         pintar_login();
         pintarFooter();
@@ -199,7 +204,7 @@ function pintarHeader(){
     h2_header.id = 'h2_header';
     //h2_header.addEventListener('click', pintar_perfil)
 
-    log_off.appendChild(logoff_text);
+    log_out.appendChild(log_out_text);
     li_h2.appendChild(h2_header);
     
     let icono_perfil = document.createElement('i');
@@ -214,7 +219,66 @@ function pintarHeader(){
     
     document.getElementById('main').appendChild(header);
 }
+function recoger_postlist(){
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/post_list/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            let i = 0;
+            data.forEach(post => {
+                console.log('Fecha:', post.fecha.split('T')[0]);
+
+                let h2_post = document.createElement('h2');
+                h2_post.textContent = post.titulo;
+
+                let desc_post = document.createElement('p');
+                desc_post.textContent = post.descripcion;
+                desc_post.id = 'parrafo' + i;
+                i++;
+
+                let num_jugadores = document.createElement('p');
+                num_jugadores.textContent = 'Número de jugadores: '+ post.numero_jugadores;
+                num_jugadores.id = 'parrafo' + i;
+                i++;
+
+                let user_creador = document.createElement('p');
+                user_creador.textContent = datosUser[2];
+                user_creador.id = 'parrafo' + i;
+                i++;
+
+                let fecha_post = document.createElement('p');
+                fecha_post.textContent = 'Fecha de creación: ' + post.fecha.split('T')[0];
+                fecha_post.id = 'parrafo' + i;
+
+                i = 0;
+                let div_post = document.createElement('div');
+                div_post.className = 'div_post';
+                
+                div_post.appendChild(h2_post);
+                div_post.appendChild(user_creador);
+                div_post.appendChild(desc_post);
+                div_post.appendChild(num_jugadores);
+                div_post.appendChild(fecha_post);
+                document.getElementById('listado_posts').appendChild(div_post);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 function pintar_inicio() {
+
+datosUser = recoger_datos_usuario();
+
 pintarHeader();
 
     let div_fondo_inicio = document.createElement('div');
@@ -288,6 +352,9 @@ pintarHeader();
     botonera.appendChild(boton_crear_post);
     div_inicio.appendChild(botonera);
     div_inicio.appendChild(div_listado_posts);
+
+    recoger_postlist();
+
     div_fondo_inicio.appendChild(div_inicio);
 
 
@@ -298,9 +365,8 @@ pintarFooter();
 }
 function recoger_datos_usuario() {
 
-    let arrayUser;
+    let arrayDatosUser = [];
 
-    event.preventDefault();
 
     let opciones = {
         method: 'GET',
@@ -314,24 +380,24 @@ function recoger_datos_usuario() {
             return response.json();
         })
         .then(data => {
-            console.log(data); 
-            arrayUser.push(data.id);
-            arrayUser.push(data.email);
-            arrayUser.push(data.name);
+            console.log(data.id);
+            arrayDatosUser.push(data.id);
+            arrayDatosUser.push(data.email);
+            arrayDatosUser.push(data.name);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
-    return arrayUser;
+    return arrayDatosUser;
 }
 function pintar_form_posts(){
+
     reseteo_header_footer();
+
     pintarHeader();
+
     document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
-
-
-    let array_user = recoger_datos_usuario()
 
     let fondo_form_post = document.createElement('div');
     fondo_form_post.id = 'fondo_form_post';
@@ -345,20 +411,74 @@ function pintar_form_posts(){
     let h1_crear_post = document.createElement('h1');
     h1_crear_post.textContent = 'Creación de partida';
 
+    let label_titulo_post = document.createElement('label');
+    label_titulo_post.for = 'titulo_post';
+    label_titulo_post.textContent = 'Titulo del Post';
 
-    let crear_partida = document.createElement('button');
-    crear_partida.textContent = 'Crear';
-    crear_partida.addEventListener('click', );
+    let titulo_post = document.createElement('input');
+    titulo_post.type = 'text';
+    titulo_post.id = 'titulo_post';
 
+    let label_descr_post = document.createElement('label');
+    label_descr_post.for = 'descr_post';
+    label_descr_post.textContent = 'Descripción'
 
+    let descr_post = document.createElement('textarea');
+    descr_post.id = 'descr_post';
 
-    form_post.appendChild(crear_partida);
+    let div_label_jugad = document.createElement('div');
+    div_label_jugad.id = 'div_label_post';
+
+    let label_jugad_post = document.createElement('label');
+    label_jugad_post.for = 'jugad_post';
+    label_jugad_post.textContent = 'Número de jugadores para la partida:';
+
+    let jugad_post = document.createElement('input');
+    jugad_post.id = 'jugad_post';
+    jugad_post.type = 'number';
+
+    let boton_crear_post = document.createElement('button');
+    boton_crear_post.textContent = 'Crear';
+    boton_crear_post.addEventListener('click', crear_post);
+
+    form_post.appendChild(h1_crear_post);
+    form_post.appendChild(label_titulo_post);
+    form_post.appendChild(titulo_post);
+    form_post.appendChild(label_descr_post);
+    form_post.appendChild(descr_post);
+    div_label_jugad.appendChild(label_jugad_post);
+    div_label_jugad.appendChild(jugad_post);
+    form_post.appendChild(div_label_jugad);
+    form_post.appendChild(boton_crear_post);
     div_form_post.appendChild(form_post);
-    fondo_form_post.appendChild(h1_crear_post);
+    
     fondo_form_post.appendChild(div_form_post);
     document.getElementById('main').appendChild(fondo_form_post);
 
     pintarFooter();
+}
+function crear_post(){
+
+    event.preventDefault();
+
+    const valores = {
+            usuario_creador: datosUser[0],
+            titulo: document.getElementById('titulo_post').value,
+            descripcion: document.getElementById('descr_post').value,
+            numero_jugadores: document.getElementById('jugad_post').value
+        }
+        console.log('hola');
+        
+        const opciones = {
+                method: 'POST',
+                headers : {
+                    'Content-type': 'application/json'
+            },
+                body: JSON.stringify(valores)
+        }
+        
+        fetch('http://localhost:8000/api/post_detail/' , opciones)  
+        .then(response => console.log(response.status));  
 }
 function pintar_login(){
     let login_div = document.createElement('div');
@@ -442,23 +562,24 @@ function login (){
 };
 if(localStorage.getItem('access_token') == null){
 
+
     pintarHeader_login();
 
     pintar_login();  
 
     pintarFooter();
 
-
     
 
 } else {
+   
     pintar_inicio();
 }
 
-// CREAR FUNCION PARA LISTAR LOS POSTS CREADOS EN EL MAIN
+// CREAR ESTILO DE LOS POSTS LISTADOS EN EL INICIO
 
-// BOTON CREAR POSTS Y DETALLE DE LOS POST 
-                        // -> BOTON UNIRSE A LA PARTIDA
+// DETALLE DE LOS POST 
+            // -> BOTON UNIRSE A LA PARTIDA
 
 // HEADER 'MI PERFIL' FUNCIONAL
                         //  -> EDICION DEL PERFIL
