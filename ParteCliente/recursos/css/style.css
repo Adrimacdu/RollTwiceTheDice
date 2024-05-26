@@ -331,3 +331,30 @@
 
 */
 
+ .div_post{
+    background: #909090;
+    width: 1000px;
+    margin: 10px auto;
+ }
+
+ .div_post h2{
+    font-size: 40px;
+ }
+
+ .div_post #parrafo2{
+    font-size: 20px;
+    margin: 10px;
+ }
+
+ .div_post #parrafo0{
+    font-size: 20px;
+    height: 80px;
+    margin: 10px;
+ }
+
+ #div_bajo_post{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 20px;
+ }

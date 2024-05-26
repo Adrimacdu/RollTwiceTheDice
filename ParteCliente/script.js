@@ -8,11 +8,13 @@ function pintarHeader_login(){
     let div_nav_header = document.createElement('div');
     div_nav_header.id = 'div_nav_header';
     
-    
     let div_img = document.createElement('figure');
     
     let img  = document.createElement('img');
     img.src = './recursos/images/logo.png';
+    img.addEventListener('click', function(){
+       location.reload();
+    });
     
     
     let h2_header = document.createElement('h2');
@@ -167,6 +169,9 @@ function pintarHeader(){
 
     let img  = document.createElement('img');
     img.src = './recursos/images/logo.png';
+    img.addEventListener('click', function(){
+      location.reload()
+    });
     
     // div con el h2 + el icono el perfil
 
@@ -202,7 +207,7 @@ function pintarHeader(){
     let h2_header = document.createElement('h2');
     h2_header.textContent = 'Mi perfil';
     h2_header.id = 'h2_header';
-    //h2_header.addEventListener('click', pintar_perfil)
+    h2_header.addEventListener('click', pintar_perfil);
 
     log_out.appendChild(log_out_text);
     li_h2.appendChild(h2_header);
@@ -235,7 +240,7 @@ function recoger_postlist(){
             console.log(data);
             let i = 0;
             data.forEach(post => {
-                console.log('Fecha:', post.fecha.split('T')[0]);
+                console.log(post.usuario_creador_name);
 
                 let h2_post = document.createElement('h2');
                 h2_post.textContent = post.titulo;
@@ -251,13 +256,16 @@ function recoger_postlist(){
                 i++;
 
                 let user_creador = document.createElement('p');
-                user_creador.textContent = datosUser[2];
+                user_creador.textContent = post.usuario_creador_name;
                 user_creador.id = 'parrafo' + i;
                 i++;
 
                 let fecha_post = document.createElement('p');
                 fecha_post.textContent = 'Fecha de creación: ' + post.fecha.split('T')[0];
                 fecha_post.id = 'parrafo' + i;
+
+                let div_bajo_post = document.createElement('div');
+                div_bajo_post.id = 'div_bajo_post';
 
                 i = 0;
                 let div_post = document.createElement('div');
@@ -266,8 +274,9 @@ function recoger_postlist(){
                 div_post.appendChild(h2_post);
                 div_post.appendChild(user_creador);
                 div_post.appendChild(desc_post);
-                div_post.appendChild(num_jugadores);
-                div_post.appendChild(fecha_post);
+                div_bajo_post.appendChild(num_jugadores);
+                div_bajo_post.appendChild(fecha_post);
+                div_post.appendChild(div_bajo_post);
                 document.getElementById('listado_posts').appendChild(div_post);
             });
         })
@@ -362,6 +371,38 @@ pintarHeader();
 
 
 pintarFooter();
+}
+function pintar_perfil(){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+
+    pintarHeader();
+
+    let div_foto_perfil = document.createElement('div');
+    div_foto_perfil.id = 'div_foto_perfil';
+
+    let foto_perfil_default = document.createElement('img');
+    foto_perfil_default.id = 'foto_perfil';
+    foto_perfil_default.src = '';
+
+    let fondo_perfil = document.createElement('div');
+    fondo_perfil.id = 'fondo_perfil';
+
+    let div_perfil = document.createElement('div');
+    div_perfil.id = 'div_perfil';
+
+    let p_username = document.createElement('p');
+    p_username.id = 'p_username';
+
+    let p_fecha_creacion = document.createElement('p');
+    p_fecha_creacion.id = 'p_fecha_creacion';
+
+    let email_perfil = document.createElement('p');
+    email_perfil.id = 'email_perfil';
+
+
+    document.getElementById('main').appendChild(fondo_perfil);
+
 }
 function recoger_datos_usuario() {
 
@@ -576,36 +617,11 @@ if(localStorage.getItem('access_token') == null){
     pintar_inicio();
 }
 
-// CREAR ESTILO DE LOS POSTS LISTADOS EN EL INICIO
-
 // DETALLE DE LOS POST 
-            // -> BOTON UNIRSE A LA PARTIDA
+            // --> BOTON UNIRSE A LA PARTIDA
+            // --> ENVIO DE EMAIL A USUARIOS ACEPTADOS
 
-// HEADER 'MI PERFIL' FUNCIONAL
-                        //  -> EDICION DEL PERFIL
-                        //  -> PANEL DE ADMINISTRACION DE PARTIDAS
-                        //  -> PANEL DE LOGROS DESBLOQUEADOS
-
-                        /**
-                         * Ejemplo creacion Usuario
-                         * 
-                         * const valores = {
-                         *      email: document.getElementById('id_input').value,
-                         *      username: document.getElementById('id_input').value,
-                         *      password: document.getElementById('id_input').value,
-                         * }
-                         * 
-                         * const opciones = {
-                         *      method: 'POST',
-                         *      headers : {
-                         *          'Authorization': 'JWT' + localStorage.getItem('access_token'),
-                         *          'Content-type': 'aplication/json'
-                         *      },
-                         *      body: JSON.stringify(valores)
-                         * }
-                         * 
-                         * fetch(url/api/MyUser_detail/ , opciones){
-                         *      
-                         *          (....)
-                         * }
-                         */
+// HEADER 'MI PERFIL'
+            // --> EDICION DEL PERFIL
+            // --> PANEL DE ADMINISTRACION DE PARTIDAS
+            // --> PANEL DE LOGROS DESBLOQUEADOS
