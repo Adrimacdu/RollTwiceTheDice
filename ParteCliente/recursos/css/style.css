@@ -402,9 +402,22 @@
 }
 
 #div_foto_datos p{
-    margin: 0 auto;
+    margin:auto;
 }
 
 #div_foto_datos div{
-    margin: 20px 20px;
+    margin: 70px auto 10px ;
+}
+
+#div_botonera_perfil{
+    display: flex;
+    flex-direction: row;
+}
+
+#div_botonera_perfil button{
+    padding: 20px;
+    width: 250px;
+    margin: 10px 80px;
+    font-size: 20px;
+    text-align: center;
 }

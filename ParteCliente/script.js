@@ -373,7 +373,6 @@ pintarFooter();
 function pintar_perfil(){
 
     reseteo_header_footer();
-    console.log(datosUser);
 
     if(document.getElementById('fondo_inicio')){
         document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
@@ -418,14 +417,33 @@ function pintar_perfil(){
     email_perfil.textContent = datosUser[1];
 
 
-    div_foto_perfil.appendChild(foto_perfil_default);
     div_foto_datos.appendChild(div_foto_perfil);
     div_foto_datos.appendChild(div_datos);
+    div_foto_perfil.appendChild(foto_perfil_default);
     div_datos.appendChild(p_username);
     div_datos.appendChild(p_fecha_creacion);
     div_datos.appendChild(p_num_post);
     div_datos.appendChild(email_perfil);
+
+
+    let div_botonera_perfil = document.createElement('div');
+    div_botonera_perfil.id = 'div_botonera_perfil';
+
+    let boton_descripcion = document.createElement('button');
+    boton_descripcion.id = 'boton_descripcion';
+    boton_descripcion.textContent = 'Editar descripcion';
+
+    let boton_partidas= document.createElement('button');
+    boton_partidas.id = 'boton_partidas';
+    boton_partidas.textContent = 'administrar partidas';
+
+
+    div_botonera_perfil.appendChild(boton_descripcion);
+    div_botonera_perfil.appendChild(boton_partidas);
+
     div_perfil.appendChild(div_foto_datos);
+    div_perfil.appendChild(div_botonera_perfil);
+    
     fondo_perfil.appendChild(div_perfil);
     document.getElementById('main').appendChild(fondo_perfil);
 
@@ -449,7 +467,6 @@ function recoger_datos_usuario() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             arrayDatosUser.push(data.id);
             arrayDatosUser.push(data.email);
             arrayDatosUser.push(data.name);
@@ -651,7 +668,6 @@ if(localStorage.getItem('access_token') == null){
             // --> BOTON UNIRSE A LA PARTIDA
             // --> ENVIO DE EMAIL A USUARIOS ACEPTADOS
 
-// HEADER 'MI PERFIL'
-            // --> EDICION DEL PERFIL
+// HEADER MI PERFIL
             // --> PANEL DE ADMINISTRACION DE PARTIDAS
             // --> PANEL DE LOGROS DESBLOQUEADOS
