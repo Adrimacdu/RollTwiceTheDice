@@ -237,10 +237,8 @@ function recoger_postlist(){
             return response.json();
         })
         .then(data => {
-            console.log(data);
             let i = 0;
             data.forEach(post => {
-                console.log(post.usuario_creador_name);
 
                 let h2_post = document.createElement('h2');
                 h2_post.textContent = post.titulo;
@@ -373,8 +371,13 @@ pintarHeader();
 pintarFooter();
 }
 function pintar_perfil(){
+
     reseteo_header_footer();
-    document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+    console.log(datosUser);
+
+    if(document.getElementById('fondo_inicio')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+    }
 
     pintarHeader();
 
@@ -383,7 +386,7 @@ function pintar_perfil(){
 
     let foto_perfil_default = document.createElement('img');
     foto_perfil_default.id = 'foto_perfil';
-    foto_perfil_default.src = '';
+    foto_perfil_default.src = './recursos/images/perfil_default.png';
 
     let fondo_perfil = document.createElement('div');
     fondo_perfil.id = 'fondo_perfil';
@@ -393,15 +396,40 @@ function pintar_perfil(){
 
     let p_username = document.createElement('p');
     p_username.id = 'p_username';
+    p_username.textContent = datosUser[2];
+
+    let div_foto_datos = document.createElement('div');
+    div_foto_datos.id = 'div_foto_datos';
+
+    let div_datos = document.createElement('div');
+    div_datos.id = 'div_datos';
+    
+    let p_num_post = document.createElement('p');
+    p_num_post.id = 'p_num_post';
+    p_num_post.textContent = 'Número de post creados: ' + datosUser[3];
+
 
     let p_fecha_creacion = document.createElement('p');
     p_fecha_creacion.id = 'p_fecha_creacion';
+    p_fecha_creacion.textContent = 'Fecha de registro: ' + datosUser[4].split('T')[0];
 
     let email_perfil = document.createElement('p');
     email_perfil.id = 'email_perfil';
+    email_perfil.textContent = datosUser[1];
 
 
+    div_foto_perfil.appendChild(foto_perfil_default);
+    div_foto_datos.appendChild(div_foto_perfil);
+    div_foto_datos.appendChild(div_datos);
+    div_datos.appendChild(p_username);
+    div_datos.appendChild(p_fecha_creacion);
+    div_datos.appendChild(p_num_post);
+    div_datos.appendChild(email_perfil);
+    div_perfil.appendChild(div_foto_datos);
+    fondo_perfil.appendChild(div_perfil);
     document.getElementById('main').appendChild(fondo_perfil);
+
+    pintarFooter();
 
 }
 function recoger_datos_usuario() {
@@ -421,10 +449,12 @@ function recoger_datos_usuario() {
             return response.json();
         })
         .then(data => {
-            console.log(data.id);
+            console.log(data);
             arrayDatosUser.push(data.id);
             arrayDatosUser.push(data.email);
             arrayDatosUser.push(data.name);
+            arrayDatosUser.push(data.post_por_user);
+            arrayDatosUser.push(data.create_date);
         })
         .catch(error => {
             console.error('Error:', error);

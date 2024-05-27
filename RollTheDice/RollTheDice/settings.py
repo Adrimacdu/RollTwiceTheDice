@@ -49,6 +49,9 @@ INSTALLED_APPS = [
 
 DJOSER = {
     'ACTIVATION_REQUIRED': False,
+    'SERIALIZERS':{
+        'current_user':'Usuarios.api.serializers.usercredencialesserializer'
+    }
 }
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kubernetes.docker.internal']
@@ -159,4 +162,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
