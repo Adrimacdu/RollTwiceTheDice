@@ -24,9 +24,6 @@ class PostDetailSet(  mixins.CreateModelMixin,
                         mixins.UpdateModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
-    """
-    Si tiene id en la url permite modificar y borrar un resultado de aprendizaje, si no la tiene permite crearlo
-    """    
     serializer_class = PostDetailSerializer
     queryset = Post.objects.all()
 

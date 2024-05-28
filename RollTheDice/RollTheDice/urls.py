@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet, PostDetailSet
+from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
 from Usuarios.api.views import MyUserListViewSet, CreateUserView
 from rest_framework import routers
 
@@ -27,6 +28,9 @@ router.register(r'post_list', PostListViewSet, basename='post_list')
 router.register(r'post_detail', PostDetailSet, basename='post_detail')
 ## RUTAS API DE USUARIOS
 router.register(r'user_list', MyUserListViewSet, basename='user_list')
+## RUTAS PERFILES USUARIO
+router.register(r'perfil_detail', PerfilDetailSet, basename='perfil_detail')
+router.register(r'perfil_list', PerfilListSet, basename='perfil_list')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls')),

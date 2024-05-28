@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'Usuarios',
     'Posts',
     'corsheaders',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'PerfilUser',
+    'Partidas',
+    'ListaJugadores'
 ]
 
 DJOSER = {
