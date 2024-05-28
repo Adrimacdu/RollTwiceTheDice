@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'PerfilUser',
     'Partidas',
-    'ListaJugadores'
 ]
 
 DJOSER = {

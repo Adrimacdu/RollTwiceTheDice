@@ -433,3 +433,52 @@
     font-size: 20px;
     padding: 5px;
 }
+
+/*
+
+    FIN PERFIL
+
+*/
+
+/*
+
+    DETALLE POST
+
+*/
+
+#fondo_detalle_post{
+    background: #D9D9D9;
+    margin: 10px auto;
+    width: 1000px;
+    color: white;
+    padding: 10px;
+    text-align: center;
+ }
+
+.div_post_detail{
+    background: #212121;
+    color: white;
+    padding: 20px;
+    
+}
+
+.div_post_detail h2{
+    font-size: 40px;
+ }
+
+ .div_post_detail #parrafo2{
+    font-size: 20px;
+    margin: 10px;
+ }
+
+ .div_post_detail #parrafo0{
+    font-size: 20px;
+    height: 80px;
+    margin: 10px;
+ }
+
+ #boton_unirse{
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 40px;
+ }

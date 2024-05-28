@@ -199,6 +199,12 @@ function pintarHeader(){
         if(document.getElementById('fondo_form_post')){
             document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
         }
+        if(document.getElementById('fondo_detalle_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_detalle_post'));
+        }
+        if(document.getElementById('fondo_perfil')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
+        }
         pintarHeader_login();
         pintar_login();
         pintarFooter();
@@ -239,7 +245,6 @@ function recoger_postlist(){
         .then(data => {
             let i = 0;
             data.forEach(post => {
-                console.log(post);
                 let h2_post = document.createElement('h2');
                 h2_post.textContent = post.titulo;
 
@@ -268,6 +273,8 @@ function recoger_postlist(){
                 i = 0;
                 let div_post = document.createElement('div');
                 div_post.className = 'div_post';
+                div_post.id = post.id;
+                div_post.addEventListener('click', detalle_post);
                 
                 div_post.appendChild(h2_post);
                 div_post.appendChild(user_creador);
@@ -283,6 +290,82 @@ function recoger_postlist(){
         });
 };
 function detalle_post(){
+
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+
+    let id_post_detail = this.id;
+
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+pintarHeader();
+    fetch('http://localhost:8000/api/post_detail/'+ id_post_detail+'/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+
+        let i = 0;
+               
+        let h2_post = document.createElement('h2');
+        h2_post.textContent = data.titulo;
+
+        let desc_post = document.createElement('p');
+        desc_post.textContent = data.descripcion;
+        desc_post.id = 'parrafo' + i;
+        i++;
+
+        let num_jugadores = document.createElement('p');
+        num_jugadores.textContent = 'Número de jugadores: '+ data.numero_jugadores;
+        num_jugadores.id = 'parrafo' + i;
+        i++;
+
+        let user_creador = document.createElement('p');
+        user_creador.textContent = data.usuario_creador_name;
+        user_creador.id = 'parrafo' + i;
+        i++;
+
+        let fecha_post = document.createElement('p');
+        fecha_post.textContent = 'Fecha de creación: ' + data.fecha.split('T')[0];
+        fecha_post.id = 'parrafo' + i;
+
+        let div_bajo_post = document.createElement('div');
+        div_bajo_post.id = 'div_bajo_post';
+
+        i = 0;
+        
+        let fondo_detalle_post = document.createElement('div');
+        fondo_detalle_post.id = 'fondo_detalle_post';
+
+        let div_post_detail = document.createElement('div');
+        div_post_detail.className = 'div_post_detail';
+
+        let boton_unirse_partida = document.createElement('button');
+        boton_unirse_partida.id = 'boton_unirse';
+        boton_unirse_partida.textContent = 'Unirte a la aventura';
+        
+        div_post_detail.appendChild(h2_post);
+        div_post_detail.appendChild(user_creador);
+        div_post_detail.appendChild(desc_post);
+        div_bajo_post.appendChild(num_jugadores);
+        div_bajo_post.appendChild(boton_unirse_partida);
+        div_bajo_post.appendChild(fecha_post);
+        div_post_detail.appendChild(div_bajo_post);
+        fondo_detalle_post.appendChild(div_post_detail);
+        document.getElementById('main').appendChild(fondo_detalle_post);
+
+       
+pintarFooter();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+ 
 
 };
 function pintar_inicio() {
@@ -375,15 +458,20 @@ pintarFooter();
 };
 function pintar_perfil(){
 
-
-    console.log(datosUser);
-
     reseteo_header_footer();
 
     if(document.getElementById('fondo_inicio')){
         document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
     }
-
+    if(document.getElementById('fondo_detalle_post')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_detalle_post'));
+    }
+    if(document.getElementById('fondo_perfil')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
+    }
+    if(document.getElementById('fondo_form_post')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
+    }
     pintarHeader();
 
     let div_foto_perfil = document.createElement('div');
@@ -519,7 +607,6 @@ function recoger_datos_usuario() {
             return response.json();
         })
         .then(data => {
-        console.log(data);
             arrayDatosUser.push(data.id);
             arrayDatosUser.push(data.email);
             arrayDatosUser.push(data.name);
