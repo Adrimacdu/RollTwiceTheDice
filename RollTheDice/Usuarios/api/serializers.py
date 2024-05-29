@@ -36,8 +36,8 @@ class MyUserListSerializer(serializers.ModelSerializer):
         instance.save()
 
         perfiluser = instance.perfiluser
-        perfiluser.bio = perfiluser_data.get('descripcion', perfiluser.descripcion)
-        perfiluser.birth_date = perfiluser_data.get('usuario', perfiluser.usuario)
+        perfiluser.descripcion = perfiluser_data.get('descripcion', perfiluser.descripcion)
+        perfiluser.usuario = perfiluser_data.get('usuario', perfiluser.usuario)
         perfiluser.save()
 
 class usercredencialesserializer(serializers.ModelSerializer):

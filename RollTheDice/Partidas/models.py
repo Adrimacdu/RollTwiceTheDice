@@ -5,11 +5,11 @@ from django.db import models
 
 class Partida(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='post')
-    usuario_jugador = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=False, verbose_name='usuario_jugador')
+
+
+
+class Jugador(models.Model):
+    usuario = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE, related_name='partida')
     aceptado = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.post + ' ----- ' + self.usuario_jugador.name + ' ----- ' + self.aceptado
-
-
-
+    fecha_union = models.DateTimeField(auto_now_add=True)

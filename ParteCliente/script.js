@@ -63,7 +63,14 @@ function pintar_registro(){
 
     let main = document.getElementById('main');
 
-    main.removeChild(document.getElementById('div_login'));
+    if(document.getElementById('div_login')){
+        main.removeChild(document.getElementById('div_login'));
+    }
+
+    if(document.getElementById('div_landing')){
+        main.removeChild(document.getElementById('div_landing'));
+    }
+
     main.removeChild(document.getElementById('footer'));
     
     let login_div = document.createElement('div');
@@ -789,19 +796,56 @@ function login (){
             console.error('Error:', error);
             });
 };
-if(localStorage.getItem('access_token') == null){
-
-
+function landing_page(){
     pintarHeader_login();
+    let div_landing = document.createElement('div');
+    div_landing.id = 'div_landing';
 
-    pintar_login();  
+    let div_texto_landing = document.createElement('div');
+    div_texto_landing.id = 'div_texto_landing';
 
+    let div_boton_login = document.createElement('div');
+    div_boton_login.id = 'div_boton_login';
+
+    let h1_landing = document.createElement('h1');
+    h1_landing.id = 'h1_landing';
+    h1_landing.textContent = '¡Conecta con gente y únete a la aventura!';
+
+    let p_landing = document.createElement('p');
+    p_landing.id = 'p_landing';
+    p_landing.textContent = 'Bienvenido a RollTwiceTheDice, un punto de encuentro entre personas que buscan gente con la que completar sus partidas de rol, iniciarse en ellas o simplemente pasarlo bien. ¿A que esperas para unirte? Regístrate y comienza a divertirte.';
+
+    let boton_pintar_login = document.createElement('button');
+    boton_pintar_login.id = 'boton_pintar_login';
+    boton_pintar_login.textContent = 'Ya tengo cuenta';
+    boton_pintar_login.addEventListener('click', function(){
+
+        document.getElementById('main').removeChild(document.getElementById('div_landing'));
+        document.getElementById('main').removeChild(document.getElementById('footer'));
+
+        pintar_login();  
+
+        pintarFooter();
+    })
+
+    let p_boton_login = document.createElement('p');
+    p_boton_login.textContent = 'Si ya tienes cuenta y has venido a pasarlo en grande presiona el botón'
+
+    div_boton_login.appendChild(p_boton_login);
+    div_boton_login.appendChild(boton_pintar_login);
+
+    div_texto_landing.appendChild(h1_landing);
+    div_texto_landing.appendChild(p_landing);
+
+    div_landing.appendChild(div_texto_landing);
+    div_landing.appendChild(div_boton_login);
+    document.getElementById('main').appendChild(div_landing)
     pintarFooter();
 
-    
-
-} else {
-   
+}
+if(localStorage.getItem('access_token') == null){
+    landing_page();
+} else { 
     pintar_inicio();
 };
 

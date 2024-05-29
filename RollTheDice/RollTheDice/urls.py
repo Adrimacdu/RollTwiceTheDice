@@ -21,6 +21,7 @@ from Posts.api.views import PostListViewSet, PostDetailSet
 from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
 from Usuarios.api.views import MyUserListViewSet, CreateUserView
 from rest_framework import routers
+from Partidas.api.views import PartidaListViewSet, JugadorListViewSet
 
 router = routers.DefaultRouter()
 ## RUTAS API DEL POST
@@ -31,6 +32,11 @@ router.register(r'user_list', MyUserListViewSet, basename='user_list')
 ## RUTAS PERFILES USUARIO
 router.register(r'perfil_detail', PerfilDetailSet, basename='perfil_detail')
 router.register(r'perfil_list', PerfilListSet, basename='perfil_list')
+## RUTAS PARTIDAS
+router.register(r'partida_list', PartidaListViewSet, basename='partida_list')
+## RUTAS JUGADORES
+router.register(r'jugador_list', JugadorListViewSet, basename='jugador_list')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls')),
