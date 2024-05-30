@@ -4,7 +4,10 @@ from PerfilUser.models import PerfilUser
 class PerfilUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilUser
-        fields = ['usuario','descripcion']
+        fields = (
+            'usuario',
+            'descripcion'
+            )
 
 class PerfilDetailSerializer(serializers.ModelSerializer):
     class Meta:

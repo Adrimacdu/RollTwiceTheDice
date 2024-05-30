@@ -212,6 +212,10 @@ function pintarHeader(){
         if(document.getElementById('fondo_perfil')){
             document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
         }
+        if(document.getElementById('fondo_admin')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
+        }
+        
         pintarHeader_login();
         pintar_login();
         pintarFooter();
@@ -298,6 +302,8 @@ function recoger_postlist(){
 };
 function detalle_post(){
 
+    console.log(datosUser[0])
+
     reseteo_header_footer();
     document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
 
@@ -316,6 +322,7 @@ pintarHeader();
         })
         .then(data => {
 
+            console.log(data);
         let i = 0;
                
         let h2_post = document.createElement('h2');
@@ -354,6 +361,11 @@ pintarHeader();
         let boton_unirse_partida = document.createElement('button');
         boton_unirse_partida.id = 'boton_unirse';
         boton_unirse_partida.textContent = 'Unirte a la aventura';
+        boton_unirse_partida.addEventListener('click', function(){
+
+            unirse_partida(data.usuario_creador, datosUser[0], data.partida_del_post);
+
+        })
         
         div_post_detail.appendChild(h2_post);
         div_post_detail.appendChild(user_creador);
@@ -372,8 +384,40 @@ pintarFooter();
             console.error('Error:', error);
         });
 
- 
+};
+function unirse_partida(usuario_creador, usuario_jugador, partida_unir){
+    event.preventDefault();
 
+    if(usuario_jugador == usuario_creador){
+        return alert('El usuario creador del post no puede unirse a su propia partida')
+    } else {
+       
+    const valores = {
+            usuario: usuario_jugador,
+            partida: partida_unir,
+        }
+        console.log('hola');
+        
+        const opciones = {
+                method: 'POST',
+                headers : {
+                    'Content-type': 'application/json'
+            },
+                body: JSON.stringify(valores)
+        }
+        
+        fetch('http://localhost:8000/api/jugador_detail/' , opciones)  
+        .then(response => {
+        if(response.ok){
+            console.log(response.status)
+        } else {
+            return alert('YA ESTAS UNIDO A LA PARTIDA')
+        }
+            })
+        .catch(error => {
+            console.error('Error:', error);
+        });;  
+    }
 };
 function pintar_inicio() {
 
@@ -479,6 +523,9 @@ function pintar_perfil(){
     if(document.getElementById('fondo_form_post')){
         document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
     }
+    if(document.getElementById('fondo_admin')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
+    }
     pintarHeader();
 
     let div_foto_perfil = document.createElement('div');
@@ -548,6 +595,7 @@ function pintar_perfil(){
     let boton_partidas = document.createElement('button');
     boton_partidas.id = 'boton_partidas';
     boton_partidas.textContent = 'administrar partidas';
+    boton_partidas.addEventListener('click', recoger_partidas);
 
     let div_descripcion = document.createElement('div');
     div_descripcion.id = 'div_descripcion';
@@ -577,6 +625,104 @@ function pintar_perfil(){
     pintarFooter();
 
 };
+function recoger_partidas(){
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/user/posts/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            pintar_menu_admin(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
+function pintar_menu_admin(listado_partidas){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
+    pintarHeader();
+
+    let fondo_admin = document.createElement('div');
+    fondo_admin.id = 'fondo_admin';
+
+    let div_menu_admin = document.createElement('div');
+    div_menu_admin.id = 'menu_admin';
+
+    let h1_admin = document.createElement('h1');
+    h1_admin.textContent = 'Administrar partidas';
+    h1_admin.id = 'h1_admin';
+
+    let div_listado_admin = document.createElement('div');
+    div_listado_admin.id = 'div_listado_admin';
+
+    let contador = 0;
+    
+    listado_partidas.forEach(function(partida){
+        let div_partida = document.createElement('div');
+        div_partida.id = partida.id;
+        if(contador%2 == 0){
+            div_partida.style.background = 'grey';
+        } else{
+            div_partida.style.background = 'white';
+        }
+        div_partida.addEventListener('click', pintar_detalle_partida);
+
+        let h2_titulo_partida = document.createElement('h2');
+        h2_titulo_partida.textContent = partida.titulo;
+
+        let jugad_admin = document.createElement('p');
+        jugad_admin.textContent = partida.numero_jugadores;
+
+        let fecha_admin = document.createElement('p');
+        fecha_admin.textContent = partida.fecha.split('T')[0];
+
+        contador++;
+        div_partida.appendChild(h2_titulo_partida);
+        div_partida.appendChild(jugad_admin);
+        div_partida.appendChild(fecha_admin);
+
+        div_listado_admin.appendChild(div_partida);
+
+    });
+   
+    div_menu_admin.appendChild(h1_admin);
+    div_menu_admin.appendChild(div_listado_admin);
+    
+    
+    fondo_admin.appendChild(div_menu_admin);
+    document.getElementById('main').appendChild(fondo_admin);
+    pintarFooter();
+    
+};
+function pintar_detalle_partida(){
+    
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/partida_detail/'+ this.id+'/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.lista_jugadores);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+}
 function actualizar_descripcion_perfil(id_user_perfil, descripcion){
 
     event.preventDefault();
@@ -842,17 +988,15 @@ function landing_page(){
     document.getElementById('main').appendChild(div_landing)
     pintarFooter();
 
-}
+};
 if(localStorage.getItem('access_token') == null){
     landing_page();
 } else { 
     pintar_inicio();
 };
 
-// DETALLE DE LOS POST 
-            // --> BOTON UNIRSE A LA PARTIDA
-            // --> ENVIO DE EMAIL A USUARIOS ACEPTADOS
+// DETALLE DE LOS POST --> ENVIO DE EMAIL A USUARIOS ACEPTADOS
 
-// HEADER MI PERFIL
-            // --> PANEL DE ADMINISTRACION DE PARTIDAS
-            // --> PANEL DE LOGROS DESBLOQUEADOS
+// HEADER MI PERFIL --> PANEL DE ADMINISTRACION DE PARTIDAS
+
+// PERFIL ADMIN --> ADMINISTRACION USUARIOS Y POSTS

@@ -37,7 +37,7 @@ class JugadorListViewSet(mixins.ListModelMixin,
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['id', 'usuario', 'partida', 'aceptado', 'fecha_union']
     search_fields = ['id', 'usuario', 'partida', 'aceptado', 'fecha_union']
-    queryset = Partida.objects.all()
+    queryset = Jugador.objects.all()
 
 class JugadorDetailViewSet(mixins.CreateModelMixin,
                         mixins.RetrieveModelMixin,

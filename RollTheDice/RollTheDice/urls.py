@@ -19,9 +19,9 @@ from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet, PostDetailSet
 from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
-from Usuarios.api.views import MyUserListViewSet, CreateUserView
+from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView
 from rest_framework import routers
-from Partidas.api.views import PartidaListViewSet, JugadorListViewSet
+from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet
 
 router = routers.DefaultRouter()
 ## RUTAS API DEL POST
@@ -34,8 +34,10 @@ router.register(r'perfil_detail', PerfilDetailSet, basename='perfil_detail')
 router.register(r'perfil_list', PerfilListSet, basename='perfil_list')
 ## RUTAS PARTIDAS
 router.register(r'partida_list', PartidaListViewSet, basename='partida_list')
+router.register(r'partida_detail', PartidalDetailSet, basename='partida_detail')
 ## RUTAS JUGADORES
 router.register(r'jugador_list', JugadorListViewSet, basename='jugador_list')
+router.register(r'jugador_detail', JugadorDetailViewSet, basename='jugador_detail')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,5 +46,6 @@ urlpatterns = [
     path('api/', include(router.urls), name='api'),
     path('auth/', include('djoser.urls')),
     path('auth/users/', CreateUserView.as_view(), name='create_user'),
+    path('api/user/posts/', UsuarioPostsView.as_view(), name='user-posts')
 ]
 
