@@ -215,6 +215,9 @@ function pintarHeader(){
         if(document.getElementById('fondo_admin')){
             document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
         }
+        if(document.getElementById('fondo_lista_jugadores')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_lista_jugadores'));
+        }
         
         pintarHeader_login();
         pintar_login();
@@ -526,6 +529,9 @@ function pintar_perfil(){
     if(document.getElementById('fondo_admin')){
         document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
     }
+    if(document.getElementById('fondo_lista_jugadores')){
+        document.getElementById('main').removeChild(document.getElementById('fondo_lista_jugadores'));
+    }
     pintarHeader();
 
     let div_foto_perfil = document.createElement('div');
@@ -715,11 +721,77 @@ function pintar_detalle_partida(){
             return response.json();
         })
         .then(data => {
-            console.log(data.lista_jugadores);
+           pintar_lista_jugadores(data.lista_jugadores);
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
+
+};
+function pintar_lista_jugadores(lista_jugadores){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
+    pintarHeader();
+    
+    let fondo_lista_jugadores = document.createElement('div');
+    fondo_lista_jugadores.id = 'fondo_lista_jugadores';
+
+    let div_listado_jugadores = document.createElement('div');
+    div_listado_jugadores.id = 'div_listado_jugadores';
+
+    let h1_listado_jugadores = document.createElement('h1');
+    h1_listado_jugadores.textContent = 'Lista de jugadores';
+    h1_listado_jugadores.id = 'h1_listado_jugadores';
+
+    div_listado_jugadores.appendChild(h1_listado_jugadores);
+
+    let div_listado_jugadores_interior = document.createElement('div');
+    div_listado_jugadores_interior.id = 'div_listado_jugadores_interior';
+
+    div_listado_jugadores.appendChild(div_listado_jugadores_interior);
+
+    let contador = 0;
+
+    lista_jugadores.forEach(function(jugador){
+
+        let div_detalle_jugador = document.createElement('div');
+        div_detalle_jugador.id = jugador.usuario;
+        if(contador%2 == 0){
+            div_detalle_jugador.style.background = 'grey';
+        } else {
+            div_detalle_jugador.style.background = 'white';
+        }
+        contador++;
+        let h2_nombre_jugador = document.createElement('h2');
+        h2_nombre_jugador.textContent = jugador.usuario_name
+
+        let fecha_jugador = document.createElement('p');
+        fecha_jugador.textContent = jugador.fecha_union.split('T')[0];
+
+        let aceptado_button = document.createElement('button');
+        if(jugador.aceptado == false){
+            aceptado_button.textContent = 'No aceptado';
+            aceptado_button.style.background = 'red';
+        } else if(jugador.aceptado == true){
+            aceptado_button.textContent = 'Aceptado';
+            aceptado_button.style.background = 'green';
+        }
+
+        div_detalle_jugador.appendChild(h2_nombre_jugador);
+        div_detalle_jugador.appendChild(fecha_jugador);
+        div_detalle_jugador.appendChild(aceptado_button);
+
+        div_listado_jugadores_interior.appendChild(div_detalle_jugador);
+        console.log(jugador);
+
+    })
+
+    fondo_lista_jugadores.appendChild(div_listado_jugadores);
+    document.getElementById('main').appendChild(fondo_lista_jugadores);
+
+    console.log(lista_jugadores);
+    pintarFooter();
 
 
 }
