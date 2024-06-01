@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet, PostDetailSet
 from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
-from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView, UsuariolDetailSet
+from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView, UsuariolDetailSet, AdminSetUserView
 from rest_framework import routers
 from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet
 
@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/', include(router.urls), name='api'),
     path('auth/', include('djoser.urls')),
     path('auth/users/', CreateUserView.as_view(), name='create_user'),
-    path('api/user/posts/', UsuarioPostsView.as_view(), name='user-posts')
+    path('api/user/posts/', UsuarioPostsView.as_view(), name='user_posts'),
+    path('auth/admin/set_user/', AdminSetUserView.as_view(), name='admin_set_user'),
 ]
 

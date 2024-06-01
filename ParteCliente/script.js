@@ -816,6 +816,9 @@ function borrar_user(user_id){
         });
 };
 function form_actualizar_user(id_user, username, email, password){
+
+    event.preventDefault();
+
     reseteo_header_footer();
     document.getElementById('main').removeChild(document.getElementById('fondo_user_list'));
 
@@ -854,19 +857,20 @@ function form_actualizar_user(id_user, username, email, password){
     label_password.textContent = 'Password:';
 
     let input_password = document.createElement('input');
-    input_password.value = "";
+    input_password.placeholder= "*****************";
     input_password.id = 'form_act_password';
 
     let boton_actualizar_user = document.createElement('button');
-    boton_actualizar_user.textContent = 'Actualizar user';
+    boton_actualizar_user.textContent = 'Actualizar';
+    boton_actualizar_user.type = 'button';
     boton_actualizar_user.addEventListener('click', function(){
-        if(input_password.value == ''){
+        if(input_password.value == null){
             actualizar_user(id_user, input_user.value, input_email.value, password);
         } else {
             actualizar_user(id_user, input_user.value, input_email.value, input_password.value);
         }
     })
-    boton_actualizar_user.type = 'button';
+    
 
     form_actualizar_user.appendChild(label_user);
     form_actualizar_user.appendChild(input_user);
@@ -888,25 +892,28 @@ function actualizar_user(id_user, username, email, password){
     event.preventDefault();
 
     const valores = {
+        user_id: id_user,
+        new_password: password,
+        re_new_password: password,
         name: username,
-        email: email,
-        password: password,
+        email: email
     };
     
     const opciones = {
             method: 'PATCH',
             headers : {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'JWT ' + localStorage.getItem('access_token')
         },
             body: JSON.stringify(valores)
     };
     
-    fetch('http://localhost:8000/api/user_detail/'+id_user+'/' , opciones)  
+    fetch('http://localhost:8000/auth/admin/set_user/' , opciones)  
     .then(response => console.log(response.status))
     .catch(error => {
         console.error('Error:', error);
     });
-}
+};
 function form_crear_usuario_admin(){
     let main = document.getElementById('main');
 

@@ -805,6 +805,82 @@ LIST USER ADMIN
     font-size: 20px;
 }
 
+#fondo_form_actualizar_user{
+    background: #D9D9D9;
+    margin: 10px auto;
+    width: 85%;
+    padding: 10px;
+    text-align: center;
+}
+
+#div_form_actualizar_user{
+    background: #212121;
+    padding: 20px;
+    color: white;
+}
+
+#div_form_actualizar_user h2{
+    font-size: 40px;
+    text-align: center;
+    margin: 20px;
+}
+
+#form_actualizar_user{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin:auto;
+}
+
+#form_act_user {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 40%;
+    margin:20px auto;
+}
+
+#form_act_email{
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 40%;
+    margin:20px auto;
+}
+
+#form_act_password{
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 40%;
+    margin:20px auto;
+}
+
+#form_actualizar_user textarea{
+    width: 60%;
+    font-size: 20px;
+    margin: auto;
+    height: 200px;
+}
+
+#form_actualizar_user label{
+    font-size: 20px;
+    margin:10px auto;
+}
+#form_act_num_jugadores{
+    width: 10%;
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+#form_actualizar_user button{
+    padding: 20px;
+    font-size: 20px;
+    width: 25%;
+    margin:10px  auto;
+}
 
 /*
 
