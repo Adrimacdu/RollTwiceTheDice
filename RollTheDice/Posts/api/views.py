@@ -12,7 +12,7 @@ class PostListViewSet( mixins.ListModelMixin,
     model= Post
     serializer_class = PostListSerializer
     pagination_class = None
-    ordering = 'id'
+    ordering = '-id'
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['titulo', 'id']
     search_fields = ['titulo']

@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import include
 from Posts.api.views import PostListViewSet, PostDetailSet
 from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
-from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView
+from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView, UsuariolDetailSet
 from rest_framework import routers
 from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet
 
@@ -29,6 +29,7 @@ router.register(r'post_list', PostListViewSet, basename='post_list')
 router.register(r'post_detail', PostDetailSet, basename='post_detail')
 ## RUTAS API DE USUARIOS
 router.register(r'user_list', MyUserListViewSet, basename='user_list')
+router.register(r'user_detail', UsuariolDetailSet, basename='user_detail')
 ## RUTAS PERFILES USUARIO
 router.register(r'perfil_detail', PerfilDetailSet, basename='perfil_detail')
 router.register(r'perfil_list', PerfilListSet, basename='perfil_list')

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from Usuarios.models import MyUser
 from rest_framework import viewsets, mixins, filters, views
-from Usuarios.api.serializers import MyUserListSerializer
+from Usuarios.api.serializers import MyUserListSerializer, MyUserDetailSerializer
 from Posts.api.serializers import PostListSerializer
 from Posts.models import Post
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -38,3 +38,12 @@ class UsuarioPostsView(APIView):
         posts = Post.objects.filter(usuario_creador=usuario)
         serializer = PostListSerializer(posts, many=True)
         return Response(serializer.data)
+
+class UsuariolDetailSet(mixins.CreateModelMixin,
+                        mixins.RetrieveModelMixin,
+                        mixins.UpdateModelMixin,
+                        mixins.DestroyModelMixin,
+                        viewsets.GenericViewSet):
+
+    serializer_class = MyUserDetailSerializer
+    queryset = MyUser.objects.all()

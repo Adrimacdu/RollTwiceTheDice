@@ -202,22 +202,34 @@ function pintarHeader(){
         reseteo_header_footer();
         if(document.getElementById('fondo_inicio')){
             document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
-        }
-        if(document.getElementById('fondo_form_post')){
-            document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
-        }
+        };
         if(document.getElementById('fondo_detalle_post')){
             document.getElementById('main').removeChild(document.getElementById('fondo_detalle_post'));
-        }
+        };
         if(document.getElementById('fondo_perfil')){
             document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
-        }
+        };
+        if(document.getElementById('fondo_form_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
+        };
         if(document.getElementById('fondo_admin')){
             document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
-        }
+        };
         if(document.getElementById('fondo_lista_jugadores')){
             document.getElementById('main').removeChild(document.getElementById('fondo_lista_jugadores'));
-        }
+        };
+        if(document.getElementById('fondo_panel_admin')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_panel_admin'));
+        };
+        if(document.getElementById('fondo_user_list')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_user_list'));
+        };
+        if(document.getElementById('fondo_post_list')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_post_list'));
+        };
+        if(document.getElementById('fondo_form_actualizar_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_post'));
+        };
         
         pintarHeader_login();
         pintar_login();
@@ -233,7 +245,7 @@ function pintarHeader(){
     li_h2.appendChild(h2_header);
     
     let icono_perfil = document.createElement('i');
-    icono_perfil.className = 'fas fa-user profile-icon'
+    icono_perfil.className = 'fas fa-user profile-icon';
 
     li_icono.appendChild(icono_perfil);
 
@@ -422,9 +434,10 @@ function unirse_partida(usuario_creador, usuario_jugador, partida_unir){
         });;  
     }
 };
-function pintar_inicio() {
+function pintar_inicio(){
 
 datosUser = recoger_datos_usuario();
+console.log(datosUser);
 
 pintarHeader();
 
@@ -512,124 +525,736 @@ pintarFooter();
 };
 function pintar_perfil(){
 
-    reseteo_header_footer();
+        reseteo_header_footer();
 
-    if(document.getElementById('fondo_inicio')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
-    }
-    if(document.getElementById('fondo_detalle_post')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_detalle_post'));
-    }
-    if(document.getElementById('fondo_perfil')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
-    }
-    if(document.getElementById('fondo_form_post')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
-    }
-    if(document.getElementById('fondo_admin')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
-    }
-    if(document.getElementById('fondo_lista_jugadores')){
-        document.getElementById('main').removeChild(document.getElementById('fondo_lista_jugadores'));
-    }
-    pintarHeader();
 
-    let div_foto_perfil = document.createElement('div');
-    div_foto_perfil.id = 'div_foto_perfil';
 
-    let foto_perfil_default = document.createElement('img');
-    foto_perfil_default.id = 'foto_perfil';
-    foto_perfil_default.src = './recursos/images/perfil_default.png';
+        if(document.getElementById('fondo_inicio')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_inicio'));
+        };
+        if(document.getElementById('fondo_detalle_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_detalle_post'));
+        };
+        if(document.getElementById('fondo_perfil')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_perfil'));
+        };
+        if(document.getElementById('fondo_form_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_post'));
+        };
+        if(document.getElementById('fondo_admin')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_admin'));
+        };
+        if(document.getElementById('fondo_lista_jugadores')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_lista_jugadores'));
+        };
+        if(document.getElementById('fondo_panel_admin')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_panel_admin'));
+        };
+        if(document.getElementById('fondo_user_list')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_user_list'));
+        };
+        if(document.getElementById('fondo_post_list')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_post_list'));
+        };
+        if(document.getElementById('fondo_form_actualizar_post')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_post'));
+        };
+        
+        
+        pintarHeader();
 
-    let fondo_perfil = document.createElement('div');
-    fondo_perfil.id = 'fondo_perfil';
+        if(!datosUser[6]){
 
-    let div_perfil = document.createElement('div');
-    div_perfil.id = 'div_perfil';
+        
 
-    let p_username = document.createElement('p');
-    p_username.id = 'p_username';
-    p_username.textContent = datosUser[2];
+        let div_foto_perfil = document.createElement('div');
+        div_foto_perfil.id = 'div_foto_perfil';
 
-    let div_foto_datos = document.createElement('div');
-    div_foto_datos.id = 'div_foto_datos';
+        let foto_perfil_default = document.createElement('img');
+        foto_perfil_default.id = 'foto_perfil';
+        foto_perfil_default.src = './recursos/images/perfil_default.png';
 
-    let div_datos = document.createElement('div');
-    div_datos.id = 'div_datos';
+        let fondo_perfil = document.createElement('div');
+        fondo_perfil.id = 'fondo_perfil';
+
+        let div_perfil = document.createElement('div');
+        div_perfil.id = 'div_perfil';
+
+        let p_username = document.createElement('p');
+        p_username.id = 'p_username';
+        p_username.textContent = datosUser[2];
+
+        let div_foto_datos = document.createElement('div');
+        div_foto_datos.id = 'div_foto_datos';
+
+        let div_datos = document.createElement('div');
+        div_datos.id = 'div_datos';
+        
+        let p_num_post = document.createElement('p');
+        p_num_post.id = 'p_num_post';
+        p_num_post.textContent = 'Número de post creados: ' + datosUser[3];
+
+
+        let p_fecha_creacion = document.createElement('p');
+        p_fecha_creacion.id = 'p_fecha_creacion';
+        p_fecha_creacion.textContent = 'Fecha de registro: ' + datosUser[4].split('T')[0];
+
+        let email_perfil = document.createElement('p');
+        email_perfil.id = 'email_perfil';
+        email_perfil.textContent = datosUser[1];
+
+
+        div_foto_datos.appendChild(div_foto_perfil);
+        div_foto_datos.appendChild(div_datos);
+        div_foto_perfil.appendChild(foto_perfil_default);
+        div_datos.appendChild(p_username);
+        div_datos.appendChild(p_fecha_creacion);
+        div_datos.appendChild(p_num_post);
+        div_datos.appendChild(email_perfil);
+
     
-    let p_num_post = document.createElement('p');
-    p_num_post.id = 'p_num_post';
-    p_num_post.textContent = 'Número de post creados: ' + datosUser[3];
 
+        let div_botonera_perfil = document.createElement('div');
+        div_botonera_perfil.id = 'div_botonera_perfil';
 
-    let p_fecha_creacion = document.createElement('p');
-    p_fecha_creacion.id = 'p_fecha_creacion';
-    p_fecha_creacion.textContent = 'Fecha de registro: ' + datosUser[4].split('T')[0];
+        let boton_descripcion = document.createElement('button');
+        boton_descripcion.id = 'boton_descripcion';
+        boton_descripcion.textContent = 'Editar descripcion';
+        boton_descripcion.addEventListener('click', function(){
+            if(text_area_descripcion.hasAttribute('readonly')){
+                text_area_descripcion.removeAttribute('readonly');
+                boton_descripcion.textContent = 'Guardar descripcion';
+            } else {
+                text_area_descripcion.readOnly = true;
+                actualizar_descripcion_perfil(datosUser[0], text_area_descripcion.value);
+            };
+        });
 
-    let email_perfil = document.createElement('p');
-    email_perfil.id = 'email_perfil';
-    email_perfil.textContent = datosUser[1];
+        let boton_partidas = document.createElement('button');
+        boton_partidas.id = 'boton_partidas';
+        boton_partidas.textContent = 'administrar partidas';
+        boton_partidas.addEventListener('click', recoger_partidas);
 
-
-    div_foto_datos.appendChild(div_foto_perfil);
-    div_foto_datos.appendChild(div_datos);
-    div_foto_perfil.appendChild(foto_perfil_default);
-    div_datos.appendChild(p_username);
-    div_datos.appendChild(p_fecha_creacion);
-    div_datos.appendChild(p_num_post);
-    div_datos.appendChild(email_perfil);
-
-
-    let div_botonera_perfil = document.createElement('div');
-    div_botonera_perfil.id = 'div_botonera_perfil';
-
-    let boton_descripcion = document.createElement('button');
-    boton_descripcion.id = 'boton_descripcion';
-    boton_descripcion.textContent = 'Editar descripcion';
-    boton_descripcion.addEventListener('click', function(){
-        if(text_area_descripcion.hasAttribute('readonly')){
-            text_area_descripcion.removeAttribute('readonly');
-            boton_descripcion.textContent = 'Guardar descripcion';
+        let div_descripcion = document.createElement('div');
+        div_descripcion.id = 'div_descripcion';
+        
+        let text_area_descripcion = document.createElement('textarea');
+        if(datosUser[5] == null){
+            text_area_descripcion.textContent = 'Escribe la descripcion de tu perfil';
         } else {
-            text_area_descripcion.readOnly = true;
+            text_area_descripcion.textContent = datosUser[5];
+        };
+        text_area_descripcion.id = 'text_area_descripcion';
+        text_area_descripcion.readOnly = true;
 
-            actualizar_descripcion_perfil(datosUser[0], text_area_descripcion.value);
+        div_descripcion.appendChild(text_area_descripcion);
 
-        }
-    })
+        div_botonera_perfil.appendChild(boton_descripcion);
+        div_botonera_perfil.appendChild(boton_partidas);
 
-    let boton_partidas = document.createElement('button');
-    boton_partidas.id = 'boton_partidas';
-    boton_partidas.textContent = 'administrar partidas';
-    boton_partidas.addEventListener('click', recoger_partidas);
+        div_perfil.appendChild(div_foto_datos);
+        div_perfil.appendChild(div_botonera_perfil);
+        div_perfil.appendChild(div_descripcion);
 
-    let div_descripcion = document.createElement('div');
-    div_descripcion.id = 'div_descripcion';
+        fondo_perfil.appendChild(div_perfil);
+
+        document.getElementById('main').appendChild(fondo_perfil);
+        
+    }else if(datosUser[6]){
+
+        let fondo_panel_admin = document.createElement('div');
+        fondo_panel_admin.id = 'fondo_panel_admin';
+
+        let div_panel_admin = document.createElement('div');
+        div_panel_admin.id = 'div_panel_admin';
+
+        let h2_panel_admin = document.createElement('h2')
+        h2_panel_admin.textContent = 'Panel de administracion';
+
+        let listado_admin = document.createElement('div');
+        listado_admin.id = 'listado_admin';
+
+
+        div_panel_admin.appendChild(h2_panel_admin);
+        div_panel_admin.appendChild(listado_admin);
+
+
+        let div_listar_posts = document.createElement('div');
+        div_listar_posts.textContent = 'Listado de Posts';
+        div_listar_posts.style.background = 'white';
+        div_listar_posts.style.color = 'black';
+        div_listar_posts.addEventListener('click', admin_post_list);
+
+        let div_listar_usuarios = document.createElement('div');
+        div_listar_usuarios.textContent = 'Listado de Usuarios';
+        div_listar_usuarios.style.background = 'grey';
+        div_listar_usuarios.addEventListener('click', admin_user_list);
+
+        listado_admin.appendChild(div_listar_posts);
+        listado_admin.appendChild(div_listar_usuarios);
+
+
+        fondo_panel_admin.appendChild(div_panel_admin);
+        document.getElementById('main').appendChild(fondo_panel_admin);
+
+    };
+
     
-    let text_area_descripcion = document.createElement('textarea');
-    if(datosUser[5] == null){
-        text_area_descripcion.textContent = 'Escribe la descripcion de tu perfil';
-    } else {
-        text_area_descripcion.textContent = datosUser[5];
-    }
-    text_area_descripcion.id = 'text_area_descripcion';
-    text_area_descripcion.readOnly = true;
-
-    div_descripcion.appendChild(text_area_descripcion);
-
-    div_botonera_perfil.appendChild(boton_descripcion);
-    div_botonera_perfil.appendChild(boton_partidas);
-
-    div_perfil.appendChild(div_foto_datos);
-    div_perfil.appendChild(div_botonera_perfil);
-    div_perfil.appendChild(div_descripcion);
-
-    fondo_perfil.appendChild(div_perfil);
-
-    document.getElementById('main').appendChild(fondo_perfil);
 
     pintarFooter();
 
+};
+function admin_user_list(){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_panel_admin'));
+
+    pintarHeader();
+
+    let fondo_user_list = document.createElement('div');
+    fondo_user_list.id = 'fondo_user_list';
+
+    let div_user_list = document.createElement('div');
+    div_user_list.id = 'div_user_list';
+
+    let h2_user_list = document.createElement('h2')
+    h2_user_list.textContent = 'Listado de Usuarios';
+
+    let boton_crear_usuario_admin = document.createElement('button');
+    boton_crear_usuario_admin.id = 'boton_crear_usuario_admin';
+    boton_crear_usuario_admin.textContent = 'Crear user';
+    boton_crear_usuario_admin.addEventListener('click', form_crear_usuario_admin);
+
+    let div_listado_admin_usuario = document.createElement('div');
+    div_listado_admin_usuario.id = 'div_listado_admin_usuario';
+
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/user_list/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.length);
+            console.log(data);
+            let contador = 0;
+            data.forEach(function(user){
+                
+                let div_detail_user = document.createElement('div');
+                div_detail_user.id = 'div_detail_user';
+                if(contador%2 == 0){
+                    div_detail_user.style.background = 'grey';
+                    div_detail_user.style.color = 'white';
+                } else {
+                    div_detail_user.style.background = 'white';
+                    div_detail_user.style.color = 'black';
+                };
+                contador++;
+                let p_texto_user = document.createElement('p');
+                p_texto_user.textContent = "Username: " + user.name + " - Email: " + user.email + " - Fecha: " + user.create_date.split('T')[0];
+
+                let botonera_list_user = document.createElement('div');
+                botonera_list_user.id = 'botonera_list_user';
+
+                let boton_actualizar_user = document.createElement('button');
+                boton_actualizar_user.textContent = 'Actualizar';
+                boton_actualizar_user.id = user.id;
+                boton_actualizar_user.addEventListener('click', function(){
+                    form_actualizar_user(user.id, user.name, user.email, user.password);
+                });
+                
+
+                let boton_borrar_user = document.createElement('button');
+                boton_borrar_user.textContent = 'Borrar';
+                boton_borrar_user.id = user.id;
+                boton_borrar_user.addEventListener('click', function(){
+                    borrar_user(user.id);
+                });
+
+                botonera_list_user.appendChild(boton_borrar_user);
+                botonera_list_user.appendChild(boton_actualizar_user);
+
+                div_detail_user.appendChild(p_texto_user);
+                div_detail_user.appendChild(botonera_list_user);
+                div_listado_admin_usuario.appendChild(div_detail_user);
+                
+            });
+        })
+        .catch(error => console.log('Error: ' + error));
+
+    
+
+    
+    div_user_list.appendChild(h2_user_list);
+    div_user_list.appendChild(boton_crear_usuario_admin);
+    div_user_list.appendChild(div_listado_admin_usuario);
+
+
+    fondo_user_list.appendChild(div_user_list);
+    document.getElementById('main').appendChild(fondo_user_list);
+
+    pintarFooter();
+};
+function borrar_user(user_id){
+    let opciones = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/user_detail/'+ user_id +'/', opciones)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
+function form_actualizar_user(id_user, username, email, password){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_user_list'));
+
+    pintarHeader();
+
+    let fondo_form_actualizar_user = document.createElement('div');
+    fondo_form_actualizar_user.id = 'fondo_form_actualizar_user';
+
+    let div_form_actualizar_user = document.createElement('div');
+    div_form_actualizar_user.id = 'div_form_actualizar_user';
+
+    let h2_actualizar_user = document.createElement('h2');
+    h2_actualizar_user.textContent = 'Actualizar user';
+
+    let form_actualizar_user = document.createElement('form');
+    form_actualizar_user.id = 'form_actualizar_user';
+
+    let label_user = document.createElement('label');
+    label_user.for = 'form_act_username';
+    label_user.textContent = 'Username:';
+
+    let input_user = document.createElement('input');
+    input_user.value = username;
+    input_user.id = 'form_act_user';
+
+    let label_email = document.createElement('label');
+    label_email.for = 'form_act_email';
+    label_email.textContent = 'Email:';
+
+    let input_email = document.createElement('input');
+    input_email.id = 'form_act_email';
+    input_email.value = email;
+
+    let label_password = document.createElement('label');
+    label_password.for = 'form_act_password';
+    label_password.textContent = 'Password:';
+
+    let input_password = document.createElement('input');
+    input_password.value = "";
+    input_password.id = 'form_act_password';
+
+    let boton_actualizar_user = document.createElement('button');
+    boton_actualizar_user.textContent = 'Actualizar user';
+    boton_actualizar_user.addEventListener('click', function(){
+        if(input_password.value == ''){
+            actualizar_user(id_user, input_user.value, input_email.value, password);
+        } else {
+            actualizar_user(id_user, input_user.value, input_email.value, input_password.value);
+        }
+    })
+    boton_actualizar_user.type = 'button';
+
+    form_actualizar_user.appendChild(label_user);
+    form_actualizar_user.appendChild(input_user);
+    form_actualizar_user.appendChild(label_email);
+    form_actualizar_user.appendChild(input_email);
+    form_actualizar_user.appendChild(label_password);
+    form_actualizar_user.appendChild(input_password);
+    form_actualizar_user.appendChild(boton_actualizar_user);
+
+    div_form_actualizar_user.appendChild(h2_actualizar_user);
+    div_form_actualizar_user.appendChild(form_actualizar_user);
+
+    fondo_form_actualizar_user.appendChild(div_form_actualizar_user);
+    document.getElementById('main').appendChild(fondo_form_actualizar_user);
+    pintarFooter();
+};
+function actualizar_user(id_user, username, email, password){
+
+    event.preventDefault();
+
+    const valores = {
+        name: username,
+        email: email,
+        password: password,
+    };
+    
+    const opciones = {
+            method: 'PATCH',
+            headers : {
+                'Content-type': 'application/json'
+        },
+            body: JSON.stringify(valores)
+    };
+    
+    fetch('http://localhost:8000/api/user_detail/'+id_user+'/' , opciones)  
+    .then(response => console.log(response.status))
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+function form_crear_usuario_admin(){
+    let main = document.getElementById('main');
+
+    if(document.getElementById('fondo_user_list')){
+        main.removeChild(document.getElementById('fondo_user_list'));
+    }
+
+    main.removeChild(document.getElementById('footer'));
+    
+    let login_div = document.createElement('div');
+    login_div.id = 'div_login';
+    
+    let form_div = document.createElement('div');
+    form_div.id = 'div_form_login';
+    
+    let form_registro = document.createElement('form');
+    form_registro.id = 'form_login';
+
+    let h1_registro = document.createElement('h1');
+    h1_registro.textContent = 'Formulario de Registro';
+    
+    let inputEmail_registro = document.createElement('input');
+    inputEmail_registro.id='email_registro';
+    inputEmail_registro.type = 'email';
+    
+    let labelEmail_registro = document.createElement('label');
+    labelEmail_registro.for = 'email_registro';
+    labelEmail_registro.textContent = 'Email';
+
+    let inputPassword_registro = document.createElement('input');
+    inputPassword_registro.id='password_registro';
+    inputPassword_registro.type = 'text';
+    
+    let labelPassword_registro = document.createElement('label');
+    labelPassword_registro.for = 'password_registro';
+    labelPassword_registro.textContent = 'Password';
+
+    let inputUser_registro = document.createElement('input');
+    inputUser_registro.id='user_registro';
+    inputUser_registro.type = 'text';
+    
+    let labelUser_registro = document.createElement('label');
+    labelUser_registro.for = 'user_registro';
+    labelUser_registro.textContent = 'Nombre de usuario';
+
+    let button_registro = document.createElement('button')
+    button_registro.textContent = 'Registrarme';
+    button_registro.addEventListener('click', crear_usuario);
+
+    form_registro.appendChild(h1_registro);
+    form_registro.appendChild(labelEmail_registro);
+    form_registro.appendChild(inputEmail_registro);
+    form_registro.appendChild(labelUser_registro);
+    form_registro.appendChild(inputUser_registro);
+    form_registro.appendChild(labelPassword_registro);
+    form_registro.appendChild(inputPassword_registro);
+    form_registro.appendChild(button_registro);
+
+    form_div.appendChild(form_registro);
+    login_div.appendChild(form_div);
+    main.appendChild(login_div);
+
+    pintarFooter();
+};
+function admin_post_list(){
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_panel_admin'));
+
+    pintarHeader();
+
+    let fondo_post_list = document.createElement('div');
+    fondo_post_list.id = 'fondo_post_list';
+
+    let div_post_list = document.createElement('div');
+    div_post_list.id = 'div_post_list';
+
+    let h2_post_list = document.createElement('h2')
+    h2_post_list.textContent = 'Listado de Posts';
+
+    let boton_crear_post_admin = document.createElement('button');
+    boton_crear_post_admin.id = 'boton_crear_post_admin';
+    boton_crear_post_admin.textContent = 'Crear Post';
+    boton_crear_post_admin.addEventListener('click', form_crear_post_admin);
+
+    let div_listado_admin_post = document.createElement('div');
+    div_listado_admin_post.id = 'div_listado_admin_post';
+
+    let opciones = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/post_list/', opciones)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.length);
+            console.log(data);
+            data.forEach(function(post){
+                
+                let div_detail_post = document.createElement('div');
+                div_detail_post.id = 'div_detail_post';
+                if(post.id%2 == 0){
+                    div_detail_post.style.background = 'grey';
+                    div_detail_post.style.color = 'white';
+                } else {
+                    div_detail_post.style.background = 'white';
+                    div_detail_post.style.color = 'black';
+                };
+                let p_texto_post = document.createElement('p');
+                p_texto_post.textContent = "Título: " + post.titulo + " - Creador: " + post.usuario_creador_name + " - NºJugadores: " + post.numero_jugadores  + " - Fecha: " + post.fecha.split('T')[0];
+
+                let botonera_list_posts = document.createElement('div');
+                botonera_list_posts.id = 'botonera_list_posts';
+
+                let boton_actualizar_post = document.createElement('button');
+                boton_actualizar_post.textContent = 'Actualizar';
+                boton_actualizar_post.id = post.id;
+                boton_actualizar_post.addEventListener('click', function(){
+                    form_actualizar_post(post.id, post.usuario_creador, post.titulo, post.descripcion, post.numero_jugadores, post.fecha);
+                });
+                
+
+                let boton_borrar_post = document.createElement('button');
+                boton_borrar_post.textContent = 'Borrar';
+                boton_borrar_post.id = post.id;
+                boton_borrar_post.addEventListener('click', function(){
+                    borrar_post(post.id);
+                });
+
+                botonera_list_posts.appendChild(boton_borrar_post);
+                botonera_list_posts.appendChild(boton_actualizar_post);
+
+                div_detail_post.appendChild(p_texto_post);
+                div_detail_post.appendChild(botonera_list_posts);
+                div_listado_admin_post.appendChild(div_detail_post);
+            });
+        })
+        .catch(error => console.log('Error: ' + error));
+
+    
+
+    div_post_list.appendChild(div_listado_admin_post);
+    div_post_list.appendChild(h2_post_list);
+    div_post_list.appendChild(boton_crear_post_admin);
+    div_post_list.appendChild(div_listado_admin_post);
+
+
+    fondo_post_list.appendChild(div_post_list);
+    document.getElementById('main').appendChild(fondo_post_list);
+
+    pintarFooter();
+};
+function form_crear_post_admin(){
+    reseteo_header_footer();
+
+    pintarHeader();
+
+    document.getElementById('main').removeChild(document.getElementById('fondo_post_list'));
+
+    let fondo_form_post = document.createElement('div');
+    fondo_form_post.id = 'fondo_form_post';
+
+    let div_form_post = document.createElement('div');
+    div_form_post.id = 'div_form_post';
+
+    let form_post = document.createElement('form');
+    form_post.id = 'form_post';
+
+    let h1_crear_post = document.createElement('h1');
+    h1_crear_post.textContent = 'Creación de partida';
+
+    let label_titulo_post = document.createElement('label');
+    label_titulo_post.for = 'titulo_post';
+    label_titulo_post.textContent = 'Titulo del Post';
+
+    let titulo_post = document.createElement('input');
+    titulo_post.type = 'text';
+    titulo_post.id = 'titulo_post';
+
+    let label_descr_post = document.createElement('label');
+    label_descr_post.for = 'descr_post';
+    label_descr_post.textContent = 'Descripción'
+
+    let descr_post = document.createElement('textarea');
+    descr_post.id = 'descr_post';
+
+    let div_label_jugad = document.createElement('div');
+    div_label_jugad.id = 'div_label_post';
+
+    let label_jugad_post = document.createElement('label');
+    label_jugad_post.for = 'jugad_post';
+    label_jugad_post.textContent = 'Número de jugadores para la partida:';
+
+    let jugad_post = document.createElement('input');
+    jugad_post.id = 'jugad_post';
+    jugad_post.type = 'number';
+
+    let boton_crear_post = document.createElement('button');
+    boton_crear_post.textContent = 'Crear';
+    boton_crear_post.addEventListener('click', function(){
+        crear_post_admin(titulo_post.value, descr_post.value, jugad_post.value);
+    });
+
+    form_post.appendChild(h1_crear_post);
+    form_post.appendChild(label_titulo_post);
+    form_post.appendChild(titulo_post);
+    form_post.appendChild(label_descr_post);
+    form_post.appendChild(descr_post);
+    div_label_jugad.appendChild(label_jugad_post);
+    div_label_jugad.appendChild(jugad_post);
+    form_post.appendChild(div_label_jugad);
+    form_post.appendChild(boton_crear_post);
+    div_form_post.appendChild(form_post);
+    
+    fondo_form_post.appendChild(div_form_post);
+    document.getElementById('main').appendChild(fondo_form_post);
+
+    pintarFooter();
+
+};
+function crear_post_admin(titulo_post, descr_post, jugad_post){
+
+    const valores = {
+        usuario_creador: datosUser[0],
+        titulo: titulo_post,
+        descripcion: descr_post,
+        numero_jugadores: jugad_post
+    };
+    
+    const opciones = {
+            method: 'POST',
+            headers : {
+                'Content-type': 'application/json'
+        },
+            body: JSON.stringify(valores)
+    };
+    
+    fetch('http://localhost:8000/api/post_detail/' , opciones)  
+    .then(response => console.log(response.status));  
+};
+function form_actualizar_post(id_post, id_usuario, titulo, descripcion, numero_jugadores){
+
+    reseteo_header_footer();
+    document.getElementById('main').removeChild(document.getElementById('fondo_post_list'));
+
+    pintarHeader();
+
+    let fondo_form_actualizar_post = document.createElement('div');
+    fondo_form_actualizar_post.id = 'fondo_form_actualizar_post';
+
+    let div_form_actualizar_post = document.createElement('div');
+    div_form_actualizar_post.id = 'div_form_actualizar_post';
+
+    let h2_actualizar_post = document.createElement('h2');
+    h2_actualizar_post.textContent = 'Actualizar Post';
+
+    let form_actualizar_post = document.createElement('form');
+    form_actualizar_post.id = 'form_actualizar_post';
+
+    let label_titulo = document.createElement('label');
+    label_titulo.for = 'form_act_titulo';
+    label_titulo.textContent = 'Título:';
+
+    let input_titulo = document.createElement('input');
+    input_titulo.value = titulo;
+    input_titulo.id = 'form_act_titulo';
+
+    let label_desc = document.createElement('label');
+    label_desc.for = 'form_act_desc';
+    label_desc.textContent = 'Descripción';
+
+    let input_desc = document.createElement('textarea');
+    input_desc.id = 'form_act_desc';
+    input_desc.value = descripcion;
+
+    let label_num_jugadores = document.createElement('label');
+    label_num_jugadores.for = 'form_act_num_jugadores';
+    label_num_jugadores.textContent = 'Nº Jugadores:';
+
+    let input_num_jugadores = document.createElement('input');
+    input_num_jugadores.value = numero_jugadores;
+    input_num_jugadores.id = 'form_act_num_jugadores';
+    input_num_jugadores.type = 'number';
+
+    let boton_actualizar_post = document.createElement('button');
+    boton_actualizar_post.textContent = 'Actualizar Post';
+    boton_actualizar_post.addEventListener('click', function(){
+        actualizar_post(id_post, id_usuario, input_titulo.value, input_desc.value, input_num_jugadores.value);
+    })
+    boton_actualizar_post.type = 'button';
+
+    form_actualizar_post.appendChild(label_titulo);
+    form_actualizar_post.appendChild(input_titulo);
+    form_actualizar_post.appendChild(label_desc);
+    form_actualizar_post.appendChild(input_desc);
+    form_actualizar_post.appendChild(label_num_jugadores);
+    form_actualizar_post.appendChild(input_num_jugadores);
+    form_actualizar_post.appendChild(boton_actualizar_post);
+
+    div_form_actualizar_post.appendChild(h2_actualizar_post);
+    div_form_actualizar_post.appendChild(form_actualizar_post);
+
+    fondo_form_actualizar_post.appendChild(div_form_actualizar_post);
+    document.getElementById('main').appendChild(fondo_form_actualizar_post);
+    pintarFooter();
+
+};
+function actualizar_post(id_post, id_usuario, titulo_nuevo, descripcion_nueva, numero_jugadores_nuevo){
+    const valores = {
+        usuario_creador: id_usuario,
+        titulo: titulo_nuevo,
+        descripcion: descripcion_nueva,
+        numero_jugadores: numero_jugadores_nuevo
+    };
+    
+    const opciones = {
+            method: 'PATCH',
+            headers : {
+                'Content-type': 'application/json'
+        },
+            body: JSON.stringify(valores)
+    };
+    
+    fetch('http://localhost:8000/api/post_detail/'+id_post+'/' , opciones)  
+    .then(response => console.log(response.status))
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+function borrar_post(id_post){
+    let opciones = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'JWT ' + localStorage.getItem('access_token')
+        }
+    };
+
+    fetch('http://localhost:8000/api/post_detail/'+ id_post +'/', opciones)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 };
 function recoger_partidas(){
     let opciones = {
@@ -771,12 +1396,10 @@ function pintar_lista_jugadores(lista_jugadores){
 
         let aceptado_button = document.createElement('button');
         if(jugador.aceptado == false){
-            aceptado_button.textContent = 'No aceptado';
-            aceptado_button.style.background = 'red';
+            aceptado_button.textContent = 'X';
         } else if(jugador.aceptado == true){
-            aceptado_button.textContent = 'Aceptado';
-            aceptado_button.style.background = 'green';
-        }
+            aceptado_button.textContent = '✔';
+        };
 
         div_detalle_jugador.appendChild(h2_nombre_jugador);
         div_detalle_jugador.appendChild(fecha_jugador);
@@ -794,7 +1417,7 @@ function pintar_lista_jugadores(lista_jugadores){
     pintarFooter();
 
 
-}
+};
 function actualizar_descripcion_perfil(id_user_perfil, descripcion){
 
     event.preventDefault();
@@ -815,7 +1438,7 @@ function actualizar_descripcion_perfil(id_user_perfil, descripcion){
         fetch('http://localhost:8000/api/perfil_detail/'+id_user_perfil+'/'  , opciones)  
         .then(response => console.log(response.status));   
 };
-function recoger_datos_usuario() {
+function recoger_datos_usuario(){
 
     let arrayDatosUser = [];
 
@@ -832,12 +1455,14 @@ function recoger_datos_usuario() {
             return response.json();
         })
         .then(data => {
+            console.log(data)
             arrayDatosUser.push(data.id);
             arrayDatosUser.push(data.email);
             arrayDatosUser.push(data.name);
             arrayDatosUser.push(data.post_por_user);
             arrayDatosUser.push(data.create_date);
             arrayDatosUser.push(data.descripcion_perfil);
+            arrayDatosUser.push(data.is_staff);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -1067,8 +1692,4 @@ if(localStorage.getItem('access_token') == null){
     pintar_inicio();
 };
 
-// DETALLE DE LOS POST --> ENVIO DE EMAIL A USUARIOS ACEPTADOS
-
-// HEADER MI PERFIL --> PANEL DE ADMINISTRACION DE PARTIDAS
-
-// PERFIL ADMIN --> ADMINISTRACION USUARIOS Y POSTS
+// ENVIO DE EMAIL A USUARIOS ACEPTADOS

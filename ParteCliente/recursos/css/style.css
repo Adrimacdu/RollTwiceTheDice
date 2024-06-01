@@ -158,7 +158,7 @@
 
 .profile-icon{
     color:white;
-    scale: 2.5;
+    font-size: 2em;
 }
 
 /*
@@ -434,6 +434,42 @@
     padding: 5px;
 }
 
+#fondo_panel_admin{
+    background: #D9D9D9;
+    padding: 10px 10px;
+    margin: 10px auto;
+    width: 60%;
+    color: white;
+}
+
+#div_panel_admin{
+    padding: 10px 10px;
+    width: 100%;
+    background: #212121;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#div_panel_admin h2{
+    font-size: 40px;
+    padding: 20px;
+}
+
+#listado_admin{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 20px 0;
+    
+}
+
+#listado_admin div{
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
 /*
 
     FIN PERFIL
@@ -618,3 +654,160 @@ width: 70%;
     text-align: center;
     padding: 20px;
 }
+
+/*
+
+    FIN MENU ADMIN PARTIDAS
+
+*/
+
+/*
+
+    LIST POST ADMIN
+
+*/
+
+#fondo_post_list{
+    background: #D9D9D9;
+    margin: 10px auto;
+    width: 85%;
+    padding: 10px;
+    text-align: center;
+}
+
+#div_post_list{
+    background: #212121;
+    padding: 20px;
+    color: white;
+}
+
+#div_post_list h2{
+    font-size: 40px;
+}
+
+#div_post_list button{
+    padding: 15px;
+    font-size: 20px;
+    margin: 20px;
+    width: 150px;
+}
+
+#div_listado_admin_post div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#div_listado_admin_post div p{
+    margin: auto;
+    font-size: 20px;
+}
+
+#fondo_form_actualizar_post{
+    background: #D9D9D9;
+    margin: 10px auto;
+    width: 85%;
+    padding: 10px;
+    text-align: center;
+}
+
+#div_form_actualizar_post{
+    background: #212121;
+    padding: 20px;
+    color: white;
+}
+
+#div_form_actualizar_post h2{
+    font-size: 40px;
+    text-align: center;
+    margin: 20px;
+}
+
+#form_actualizar_post{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin:auto;
+}
+
+#form_act_titulo {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 40%;
+    margin:20px auto;
+}
+
+#form_actualizar_post textarea{
+    width: 60%;
+    font-size: 20px;
+    margin: auto;
+    height: 200px;
+}
+
+#form_actualizar_post label{
+    font-size: 20px;
+    margin:10px auto;
+}
+#form_act_num_jugadores{
+    width: 10%;
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+#form_actualizar_post button{
+    padding: 20px;
+    font-size: 20px;
+    width: 25%;
+    margin:10px  auto;
+}
+/*
+FIN LIST POST ADMIN
+-----------------------------------
+LIST USER ADMIN
+*/
+#fondo_user_list{
+    background: #D9D9D9;
+    margin: 10px auto;
+    width: 85%;
+    padding: 10px;
+    text-align: center;
+}
+
+#div_user_list{
+    background: #212121;
+    padding: 20px;
+    color: white;
+}
+
+#div_user_list h2{
+    font-size: 40px;
+}
+
+#div_user_list button{
+    padding: 15px;
+    font-size: 20px;
+    margin: 20px;
+    width: 150px;
+}
+
+#div_listado_admin_usuario div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+#div_listado_admin_usuario div p{
+    margin: auto;
+    font-size: 20px;
+}
+
+
+/*
+
+    FIN LIST USER ADMIN
+
+*/

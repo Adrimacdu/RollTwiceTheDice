@@ -3,6 +3,7 @@ from Usuarios.models import *
 from Posts.models import Post
 from PerfilUser.models import PerfilUser
 from PerfilUser.api.serializers import PerfilUserSerializer
+from django.contrib.auth.hashers import make_password
 
 class MyUserListSerializer(serializers.ModelSerializer):
 
@@ -15,7 +16,9 @@ class MyUserListSerializer(serializers.ModelSerializer):
             'email',
             'password',
             'name',
-            'perfiluser'
+            'perfiluser',
+            'create_date'
+
         ) 
 
     def create(self, validated_data):
@@ -53,7 +56,8 @@ class usercredencialesserializer(serializers.ModelSerializer):
             'name',
             'post_por_user',
             'create_date',
-            'descripcion_perfil'
+            'descripcion_perfil',
+            'is_staff'
         )
     
     def get_descripcion_perfil(self, obj):
@@ -66,3 +70,22 @@ class usercredencialesserializer(serializers.ModelSerializer):
 
     def get_post_por_user(self, obj):
         return Post.objects.filter(usuario_creador=obj).count()
+
+class MyUserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = (
+            'id',
+            'email',
+            'password',
+            'name',
+            'create_date'
+        ) 
+
+    def validate_password(self, value: str):
+        return make_password(value)
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(validated_data['password'])
+        return super().update(instance, validated_data)

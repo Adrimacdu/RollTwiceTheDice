@@ -6,8 +6,7 @@ from .models import Partida
 
 @receiver(post_save, sender=Post)
 def save_partida(sender, instance, created, **kwargs):
+
     if created:
         Partida.objects.create(post=instance)
-    else:
-        if instance.partida:
-            instance.partida.save()
+        
