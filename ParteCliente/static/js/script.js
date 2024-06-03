@@ -156,28 +156,28 @@ function crear_usuario(){
             },
                 body: JSON.stringify(valores)
         }
-        
-        fetch('http://rolltwicethedice.es:8000/auth/users/' , opciones)  
+
+        fetch('https://rolltwicethedice.es:8000/auth/users/' , opciones)  
         .then(response => console.log(response.ok));  
-    
+
 };
 function pintarHeader(){
     let header = document.createElement('div');
     header.id = 'header';
-    
-    
+
+
     let div_nav_header = document.createElement('div');
     div_nav_header.id = 'div_nav_header';
-    
-    
+
+
     let div_img = document.createElement('figure');
-    
+
     div_img.style.margin = '0 10%';
 
     let img  = document.createElement('img');
     img.src = './recursos/images/logo.png';
     img.addEventListener('click', function(){
-      location.reload()
+      location.reload();
     });
     
     // div con el h2 + el icono el perfil

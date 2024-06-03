@@ -54,7 +54,9 @@ DJOSER = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://rolltwicethedice.es']
+CSRF_TRUSTED_ORIGINS = ['https://rolltwicethedice.es',
+'http://localhost',
+'http://127.0.0.1']
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kubernetes.docker.internal', '79.143.92.120','rolltwicethedice.es' ,'rolltwicethedice.es:80','rolltwicethedice.es:8000','rolltwicethedice.es:88', '0.0.0.0']
 
@@ -77,8 +79,10 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5500', 'http://rolltwicethedice.es',
+    'http://127.0.0.1:8000', 'http://rolltwicethedice.es', 'https://rolltwicethedice.es/',
 ]
+
+SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -163,7 +167,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
