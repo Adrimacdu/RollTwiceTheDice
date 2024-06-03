@@ -1,7 +1,8 @@
 from rest_framework import serializers, response, status
-from Posts.models import *
+from Posts.models import Post
 from Partidas.api.serializers import PartidaListSerializer
 from Partidas.models import Partida
+
 
 class PostListSerializer(serializers.ModelSerializer):
 
@@ -17,10 +18,9 @@ class PostListSerializer(serializers.ModelSerializer):
             'numero_jugadores',
             'fecha'
         )
-# PARA QUE DEVUELVA EL NOMBRE DEL USUARIO Y NO EL ID AL IMPRIMIR LOS POST
+
     def get_usuario_creador_name(self, obj):
         return obj.usuario_creador.name
-
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
@@ -41,6 +41,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
             'fecha',
             'partida_del_post'
         )
+
     def get_usuario_creador_name(self, obj):
         return obj.usuario_creador.name
 

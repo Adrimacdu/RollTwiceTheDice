@@ -22,21 +22,20 @@ from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
 from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView, UsuariolDetailSet, AdminSetUserView
 from rest_framework import routers
 from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet
-
 router = routers.DefaultRouter()
-## RUTAS API DEL POST
+# RUTAS API DEL POST
 router.register(r'post_list', PostListViewSet, basename='post_list')
 router.register(r'post_detail', PostDetailSet, basename='post_detail')
-## RUTAS API DE USUARIOS
+# RUTAS API DE USUARIOS
 router.register(r'user_list', MyUserListViewSet, basename='user_list')
 router.register(r'user_detail', UsuariolDetailSet, basename='user_detail')
-## RUTAS PERFILES USUARIO
+# RUTAS PERFILES USUARIO
 router.register(r'perfil_detail', PerfilDetailSet, basename='perfil_detail')
 router.register(r'perfil_list', PerfilListSet, basename='perfil_list')
-## RUTAS PARTIDAS
+# RUTAS PARTIDAS
 router.register(r'partida_list', PartidaListViewSet, basename='partida_list')
 router.register(r'partida_detail', PartidalDetailSet, basename='partida_detail')
-## RUTAS JUGADORES
+# RUTAS JUGADORES
 router.register(r'jugador_list', JugadorListViewSet, basename='jugador_list')
 router.register(r'jugador_detail', JugadorDetailViewSet, basename='jugador_detail')
 
@@ -50,4 +49,3 @@ urlpatterns = [
     path('api/user/posts/', UsuarioPostsView.as_view(), name='user_posts'),
     path('auth/admin/set_user/', AdminSetUserView.as_view(), name='admin_set_user'),
 ]
-

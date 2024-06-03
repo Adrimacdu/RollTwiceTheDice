@@ -1,18 +1,14 @@
 from django.db import models
-
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 
-# Create your models here.
 
 class MyUserManager(BaseUserManager):
+
     def create_user(self, email, name, password=None, type=None):
         if not email:
             raise ValueError("Ha de proporcionar un e-mail válido")
 
-        user = self.model(
-            email=self.normalize_email(email),
-            name=name
-        )
+        user = self.model(email=self.normalize_email(email), name=name)
         user.name = name
         user.is_active = True
         user.set_password(password)
@@ -23,9 +19,7 @@ class MyUserManager(BaseUserManager):
         if not email:
             raise ValueError("Ha de proporcionar un e-mail válido")
 
-        user = self.model(email=self.normalize_email(email),
-                            name=name)
-
+        user = self.model(email=self.normalize_email(email), name=name)
         user.set_password(password)
         user.is_staff = True
         user.is_active = True
@@ -33,13 +27,14 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class MyUser(AbstractBaseUser):
-    name= models.CharField(max_length=30,null=True)
-    email=models.EmailField(verbose_name="email address",max_length=255,unique=True)
-    create_date=models.DateTimeField(auto_now_add=True)
-    update_date=models.DateTimeField(auto_now=True)
-    is_staff=models.BooleanField(default=False)
-    is_active=models.BooleanField(default=True)
+    name = models.CharField(max_length=30, null=True)
+    email = models.EmailField(verbose_name="email address", max_length=255, unique=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     objects = MyUserManager()
 
@@ -58,5 +53,4 @@ class MyUser(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return str(self.id) + " ---- " + str(self.email) + " ---- " + str(self.name) 
-    
+        return str(self.id) + " ---- " + str(self.email) + " ---- " + str(self.name)

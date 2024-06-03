@@ -24,10 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-9p15544$p29fhh#p0*m#tpcg-87u@zn3s7r)gkfpi#r%co@gn('
 
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -51,18 +49,20 @@ INSTALLED_APPS = [
 
 DJOSER = {
     'ACTIVATION_REQUIRED': False,
-    'SERIALIZERS':{
-        'current_user':'Usuarios.api.serializers.usercredencialesserializer'
+    'SERIALIZERS': {
+        'current_user': 'Usuarios.api.serializers.usercredencialesserializer'
     }
 }
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kubernetes.docker.internal']
+CSRF_TRUSTED_ORIGINS = ['https://rolltwicethedice.es']
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kubernetes.docker.internal', '79.143.92.120','rolltwicethedice.es' ,'rolltwicethedice.es:80','rolltwicethedice.es:8000','rolltwicethedice.es:88', '0.0.0.0']
 
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT','Bearer'),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
     'BLACKLIST_AFTER_ROTATION': False,
     'SEND_ACTIVATION_EMAIL': False,
-    'LOGOUT_ON_PASSWORD_CHANGE':True,
+    'LOGOUT_ON_PASSWORD_CHANGE': True,
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 }
@@ -77,7 +77,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5500',
+    'http://127.0.0.1:5500', 'http://rolltwicethedice.es',
 ]
 
 MIDDLEWARE = [
@@ -116,9 +116,13 @@ WSGI_APPLICATION = 'RollTheDice.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -158,7 +162,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

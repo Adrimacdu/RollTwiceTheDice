@@ -9,14 +9,15 @@ class PartidaListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partida
         fields = (
-                'id',
-                'post',
-                'lista_jugadores'
-             )
+            'id',
+            'post',
+            'lista_jugadores'
+        )
 
     def get_lista_jugadores(self, obj):
         jugadores = Jugador.objects.filter(partida=obj)
         return JugadorListSerializer(jugadores, many=True).data
+
 
 class PartidaDetailSerializer(serializers.ModelSerializer):
 
@@ -25,43 +26,46 @@ class PartidaDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partida
         fields = (
-                'id',
-                'post',
-                'lista_jugadores'
-             )
+            'id',
+            'post',
+            'lista_jugadores'
+        )
 
     def get_lista_jugadores(self, obj):
         jugadores = Jugador.objects.filter(partida=obj)
         return JugadorListSerializer(jugadores, many=True).data
-    
+
 
 class JugadorListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jugador
         fields = (
-                'id', 
-                'usuario',
-                'partida', 
-                'aceptado',
-                'fecha_union',
-                'usuario_name'
-              )
+            'id',
+            'usuario',
+            'partida',
+            'aceptado',
+            'fecha_union',
+            'usuario_name'
+        )
+
     usuario_name = serializers.SerializerMethodField()
 
     def get_usuario_name(self, obj):
         return obj.usuario.name
 
+
 class JugadorDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jugador
         fields = (
-                'id', 
-                'usuario',
-                'partida', 
-                'aceptado',
-                'fecha_union',
-                'usuario_name'
-              )
+            'id',
+            'usuario',
+            'partida',
+            'aceptado',
+            'fecha_union',
+            'usuario_name'
+        )
+
     usuario_name = serializers.SerializerMethodField()
 
     def get_usuario_name(self, obj):

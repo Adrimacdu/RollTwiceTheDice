@@ -157,7 +157,7 @@ function crear_usuario(){
                 body: JSON.stringify(valores)
         }
         
-        fetch('http://localhost:8000/auth/users/' , opciones)  
+        fetch('http://rolltwicethedice.es:8000/auth/users/' , opciones)  
         .then(response => console.log(response.ok));  
     
 };

@@ -1,11 +1,12 @@
 from rest_framework import serializers, response, status
-from Usuarios.models import *
+from Usuarios.models import MyUser, MyUserManager
 from Posts.models import Post
 from PerfilUser.models import PerfilUser
 from PerfilUser.api.serializers import PerfilUserSerializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
+
 
 class MyUserListSerializer(serializers.ModelSerializer):
 
@@ -20,8 +21,7 @@ class MyUserListSerializer(serializers.ModelSerializer):
             'name',
             'perfiluser',
             'create_date'
-
-        ) 
+        )
 
     def create(self, validated_data):
         perfiluser_data = validated_data.pop('perfiluser')
@@ -29,7 +29,6 @@ class MyUserListSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             username=validated_data['name'],
             password=validated_data['password'],
-            
         )
         PerfilUser.objects.create(user=user, **perfiluser_data)
 
@@ -44,6 +43,7 @@ class MyUserListSerializer(serializers.ModelSerializer):
         perfiluser.descripcion = perfiluser_data.get('descripcion', perfiluser.descripcion)
         perfiluser.usuario = perfiluser_data.get('usuario', perfiluser.usuario)
         perfiluser.save()
+
 
 class usercredencialesserializer(serializers.ModelSerializer):
 
@@ -61,17 +61,19 @@ class usercredencialesserializer(serializers.ModelSerializer):
             'descripcion_perfil',
             'is_staff'
         )
-    
+
     def get_descripcion_perfil(self, obj):
         try:
-            perfil = obj.perfiluser     # Al haber una relacion 1 a 1 con el perfil, se puede invocar directamente 
-                                        # (en minusculas de la misma manera que en el signal)
+            perfil = obj.perfiluser
+# Al haber una relacion 1 a 1 con el perfil, se puede invocar directamente
+# (en minusculas de la misma manera que en el signal)
             return perfil.get_descripcion()
         except PerfilUser.DoesNotExist:
             return None
 
     def get_post_por_user(self, obj):
         return Post.objects.filter(usuario_creador=obj).count()
+
 
 class MyUserDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,7 +84,7 @@ class MyUserDetailSerializer(serializers.ModelSerializer):
             'password',
             'name',
             'create_date'
-        ) 
+        )
 
     def validate_password(self, value: str):
         return make_password(value)
@@ -98,7 +100,7 @@ class AdminSetUserSerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True)
     re_new_password = serializers.CharField(write_only=True)
     email = serializers.EmailField(max_length=255)
-    name = models.CharField(max_length=30,null=True)
+    name = serializers.CharField(max_length=30)
 
     def validate(self, attrs):
         if attrs['new_password'] != attrs['re_new_password']:
@@ -123,7 +125,6 @@ class AdminSetUserSerializer(serializers.Serializer):
 
         user.save()
 
-        # Invalidate old tokens and create new ones if password was changed
         if 'new_password' in self.validated_data:
             refresh = RefreshToken.for_user(user)
             return {
