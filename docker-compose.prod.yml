@@ -18,13 +18,37 @@ services:
 
   nginx:
     build: ./nginx
+    environment:
+      - VIRTUAL_HOST=api.rolltwicethedice.es
     volumes:
       - static_volume:/home/RollTheDice/web/staticfiles
       - media_volume:/home/RollTheDice/web/mediafiles
-    ports:
-      - 80:80
+    expose:
+      - 80
     depends_on:
       - web
+
+  nginx-client:
+    build: ./client
+    environment:
+      - VIRTUAL_HOST=rolltwicethedice.es
+    expose:
+      - 80
+    
+
+
+
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    restart: "always" # Always restart container
+    ports:
+      - "80:80" # Port mappings in format host:container
+    volumes: # Volumes needed for container to configure proixes and access certificates genereated by Let's Encrypt companion container
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "nginx-conf:/etc/nginx/conf.d"
+      - "nginx-vhost:/etc/nginx/vhost.d"
+      - "html:/usr/share/nginx/html"
 
   db:
     image: postgres:15
@@ -38,3 +62,6 @@ volumes:
   postgres_data:
   static_volume:
   media_volume:
+  nginx-conf:
+  nginx-vhost:
+  html:
