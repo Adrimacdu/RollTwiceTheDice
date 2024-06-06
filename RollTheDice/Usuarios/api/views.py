@@ -32,6 +32,7 @@ class CreateUserView(APIView):
         if serializer.is_valid():  # user = serializer.save() linea borrada para desplegar a la altura del return de abajo
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    permission_classes = []
 
 
 class UsuarioPostsView(APIView):

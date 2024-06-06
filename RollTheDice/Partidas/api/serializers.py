@@ -63,10 +63,11 @@ class JugadorDetailSerializer(serializers.ModelSerializer):
             'partida',
             'aceptado',
             'fecha_union',
-            'usuario_name'
+            'usuario_name',
         )
 
     usuario_name = serializers.SerializerMethodField()
 
     def get_usuario_name(self, obj):
         return obj.usuario.name
+

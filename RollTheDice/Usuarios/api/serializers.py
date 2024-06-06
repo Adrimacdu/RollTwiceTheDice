@@ -117,19 +117,12 @@ class AdminSetUserSerializer(serializers.Serializer):
         if 'new_password' in self.validated_data:
             user.set_password(self.validated_data['new_password'])
 
-        if 'first_name' in self.validated_data:
-            user.first_name = self.validated_data['email']
+        if 'email' in self.validated_data:
+            user.email = self.validated_data['email']
 
-        if 'last_name' in self.validated_data:
-            user.last_name = self.validated_data['name']
+        if 'name' in self.validated_data:
+            user.name = self.validated_data['name']
 
         user.save()
-
-        if 'new_password' in self.validated_data:
-            refresh = RefreshToken.for_user(user)
-            return {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }
 
         return {}

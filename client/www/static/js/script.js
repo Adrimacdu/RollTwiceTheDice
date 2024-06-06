@@ -1,5 +1,20 @@
 'use strict';
 let datosUser;
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 function pintarHeader_login(){
     let header = document.createElement('div');
     header.id = 'header';
@@ -59,7 +74,6 @@ function pintarFooter(){
 };
 function pintar_registro(){
 
-    event.preventDefault();
 
     let main = document.getElementById('main');
 
@@ -111,6 +125,7 @@ function pintar_registro(){
 
     let button_registro = document.createElement('button')
     button_registro.textContent = 'Registrarme';
+    button_registro.type = 'button';
     button_registro.addEventListener('click', crear_usuario);
 
     form_registro.appendChild(h1_registro);
@@ -140,7 +155,6 @@ function borrar_login(){
 };
 function crear_usuario(){
 
-    event.preventDefault();
 
     const valores = {
             email: document.getElementById('email_registro').value,
@@ -157,9 +171,14 @@ function crear_usuario(){
                 body: JSON.stringify(valores)
         }
 
-        fetch('https://rolltwicethedice.es:8000/auth/users/' , opciones)  
-        .then(response => console.log(response.ok));  
+        fetch('https://api.rolltwicethedice.es/auth/users/' , opciones)  
+        .then(response => {
+            if(response.ok){
+                location.reload();
+            }
+        });
 
+        
 };
 function pintarHeader(){
     let header = document.createElement('div');
@@ -230,6 +249,12 @@ function pintarHeader(){
         if(document.getElementById('fondo_form_actualizar_post')){
             document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_post'));
         };
+        if(document.getElementById('div_login')){
+            document.getElementById('main').removeChild(document.getElementById('div_login'));
+        };
+        if(document.getElementById('fondo_form_actualizar_user')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_user'));
+        };
         
         pintarHeader_login();
         pintar_login();
@@ -264,7 +289,7 @@ function recoger_postlist(){
         }
     };
 
-    fetch('http://localhost:8000/api/post_list/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/post_list/', opciones)
         .then(response => {
             return response.json();
         })
@@ -331,7 +356,7 @@ function detalle_post(){
         }
     };
 pintarHeader();
-    fetch('http://localhost:8000/api/post_detail/'+ id_post_detail+'/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/post_detail/'+ id_post_detail+'/', opciones)
         .then(response => {
             return response.json();
         })
@@ -401,7 +426,6 @@ pintarFooter();
 
 };
 function unirse_partida(usuario_creador, usuario_jugador, partida_unir){
-    event.preventDefault();
 
     if(usuario_jugador == usuario_creador){
         return alert('El usuario creador del post no puede unirse a su propia partida')
@@ -416,12 +440,13 @@ function unirse_partida(usuario_creador, usuario_jugador, partida_unir){
         const opciones = {
                 method: 'POST',
                 headers : {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'Authorization': 'JWT ' + localStorage.getItem('access_token')
             },
                 body: JSON.stringify(valores)
         }
         
-        fetch('http://localhost:8000/api/jugador_detail/' , opciones)  
+        fetch('https://api.rolltwicethedice.es/api/jugador_detail/' , opciones)  
         .then(response => {
         if(response.ok){
             console.log(response.status)
@@ -559,6 +584,13 @@ function pintar_perfil(){
         if(document.getElementById('fondo_form_actualizar_post')){
             document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_post'));
         };
+        if(document.getElementById('div_login')){
+            document.getElementById('main').removeChild(document.getElementById('div_login'));
+        };
+        if(document.getElementById('fondo_form_actualizar_user')){
+            document.getElementById('main').removeChild(document.getElementById('fondo_form_actualizar_user'));
+        };
+        
         
         
         pintarHeader();
@@ -722,6 +754,7 @@ function admin_user_list(){
     let boton_crear_usuario_admin = document.createElement('button');
     boton_crear_usuario_admin.id = 'boton_crear_usuario_admin';
     boton_crear_usuario_admin.textContent = 'Crear user';
+    boton_crear_usuario_admin.type = 'button';
     boton_crear_usuario_admin.addEventListener('click', form_crear_usuario_admin);
 
     let div_listado_admin_usuario = document.createElement('div');
@@ -734,7 +767,7 @@ function admin_user_list(){
         }
     };
 
-    fetch('http://localhost:8000/api/user_list/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/user_list/', opciones)
         .then(response => {
             return response.json();
         })
@@ -807,7 +840,7 @@ function borrar_user(user_id){
         }
     };
 
-    fetch('http://localhost:8000/api/user_detail/'+ user_id +'/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/user_detail/'+ user_id +'/', opciones)
         .then(response => {
             console.log(response);
         })
@@ -817,7 +850,6 @@ function borrar_user(user_id){
 };
 function form_actualizar_user(id_user, username, email, password){
 
-    event.preventDefault();
 
     reseteo_header_footer();
     document.getElementById('main').removeChild(document.getElementById('fondo_user_list'));
@@ -864,7 +896,7 @@ function form_actualizar_user(id_user, username, email, password){
     boton_actualizar_user.textContent = 'Actualizar';
     boton_actualizar_user.type = 'button';
     boton_actualizar_user.addEventListener('click', function(){
-        if(input_password.value == null){
+        if(input_password.value == ''){
             actualizar_user(id_user, input_user.value, input_email.value, password);
         } else {
             actualizar_user(id_user, input_user.value, input_email.value, input_password.value);
@@ -889,7 +921,6 @@ function form_actualizar_user(id_user, username, email, password){
 };
 function actualizar_user(id_user, username, email, password){
 
-    event.preventDefault();
 
     const valores = {
         user_id: id_user,
@@ -908,7 +939,7 @@ function actualizar_user(id_user, username, email, password){
             body: JSON.stringify(valores)
     };
     
-    fetch('http://localhost:8000/auth/admin/set_user/' , opciones)  
+    fetch('https://api.rolltwicethedice.es/auth/admin/set_user/' , opciones)  
     .then(response => console.log(response.status))
     .catch(error => {
         console.error('Error:', error);
@@ -961,6 +992,7 @@ function form_crear_usuario_admin(){
 
     let button_registro = document.createElement('button')
     button_registro.textContent = 'Registrarme';
+    button_registro.type = 'button'
     button_registro.addEventListener('click', crear_usuario);
 
     form_registro.appendChild(h1_registro);
@@ -1004,11 +1036,12 @@ function admin_post_list(){
     let opciones = {
         method: 'GET',
         headers: {
+            'Content-type': 'application/json',
             'Authorization': 'JWT ' + localStorage.getItem('access_token')
         }
     };
 
-    fetch('http://localhost:8000/api/post_list/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/post_list/', opciones)
         .then(response => {
             return response.json();
         })
@@ -1117,6 +1150,7 @@ function form_crear_post_admin(){
 
     let boton_crear_post = document.createElement('button');
     boton_crear_post.textContent = 'Crear';
+    boton_crear_post.type = 'button';
     boton_crear_post.addEventListener('click', function(){
         crear_post_admin(titulo_post.value, descr_post.value, jugad_post.value);
     });
@@ -1150,12 +1184,13 @@ function crear_post_admin(titulo_post, descr_post, jugad_post){
     const opciones = {
             method: 'POST',
             headers : {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'JWT ' + localStorage.getItem('access_token')
         },
             body: JSON.stringify(valores)
     };
     
-    fetch('http://localhost:8000/api/post_detail/' , opciones)  
+    fetch('https://api.rolltwicethedice.es/api/post_detail/' , opciones)  
     .then(response => console.log(response.status));  
 };
 function form_actualizar_post(id_post, id_usuario, titulo, descripcion, numero_jugadores){
@@ -1236,12 +1271,13 @@ function actualizar_post(id_post, id_usuario, titulo_nuevo, descripcion_nueva, n
     const opciones = {
             method: 'PATCH',
             headers : {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'JWT ' + localStorage.getItem('access_token')
         },
             body: JSON.stringify(valores)
     };
     
-    fetch('http://localhost:8000/api/post_detail/'+id_post+'/' , opciones)  
+    fetch('https://api.rolltwicethedice.es/api/post_detail/'+id_post+'/' , opciones)  
     .then(response => console.log(response.status))
     .catch(error => {
         console.error('Error:', error);
@@ -1255,7 +1291,7 @@ function borrar_post(id_post){
         }
     };
 
-    fetch('http://localhost:8000/api/post_detail/'+ id_post +'/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/post_detail/'+ id_post +'/', opciones)
         .then(response => {
             console.log(response);
         })
@@ -1271,7 +1307,7 @@ function recoger_partidas(){
         }
     };
 
-    fetch('http://localhost:8000/api/user/posts/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/user/posts/', opciones)
         .then(response => {
             return response.json();
         })
@@ -1348,7 +1384,7 @@ function pintar_detalle_partida(){
         }
     };
 
-    fetch('http://localhost:8000/api/partida_detail/'+ this.id+'/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/partida_detail/'+ this.id+'/', opciones)
         .then(response => {
             return response.json();
         })
@@ -1386,7 +1422,7 @@ function pintar_lista_jugadores(lista_jugadores){
     let contador = 0;
 
     lista_jugadores.forEach(function(jugador){
-
+        console.log(jugador);
         let div_detalle_jugador = document.createElement('div');
         div_detalle_jugador.id = jugador.usuario;
         if(contador%2 == 0){
@@ -1404,6 +1440,10 @@ function pintar_lista_jugadores(lista_jugadores){
         let aceptado_button = document.createElement('button');
         if(jugador.aceptado == false){
             aceptado_button.textContent = 'X';
+            aceptado_button.addEventListener('click', function(){
+                console.log('hola');
+                activar_jugador(jugador.id);
+            })
         } else if(jugador.aceptado == true){
             aceptado_button.textContent = '✔';
         };
@@ -1423,7 +1463,20 @@ function pintar_lista_jugadores(lista_jugadores){
     console.log(lista_jugadores);
     pintarFooter();
 
+};
+function activar_jugador(id_jugador){
 
+    const opciones = {
+            method: 'POST',
+            headers : {
+                'Content-type': 'application/json',
+                'Authorization': 'JWT ' + localStorage.getItem('access_token'),
+                'X-CSRFToken': getCookie('csrftoken')
+        }
+    };
+    
+    fetch('https://api.rolltwicethedice.es/actualizar_jugador/'+id_jugador+'/' , opciones)  
+    .then(response => console.log(response.status));  
 };
 function actualizar_descripcion_perfil(id_user_perfil, descripcion){
 
@@ -1437,12 +1490,13 @@ function actualizar_descripcion_perfil(id_user_perfil, descripcion){
         const opciones = {
                 method: 'PATCH',
                 headers : {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'Authorization': 'JWT ' + localStorage.getItem('access_token')
             },
                 body: JSON.stringify(valores)
         }
         
-        fetch('http://localhost:8000/api/perfil_detail/'+id_user_perfil+'/'  , opciones)  
+        fetch('https://api.rolltwicethedice.es/api/perfil_detail/'+id_user_perfil+'/'  , opciones)  
         .then(response => console.log(response.status));   
 };
 function recoger_datos_usuario(){
@@ -1457,7 +1511,7 @@ function recoger_datos_usuario(){
         }
     };
 
-    fetch('http://localhost:8000/auth/users/me/', opciones)
+    fetch('https://api.rolltwicethedice.es/auth/users/me/', opciones)
         .then(response => {
             return response.json();
         })
@@ -1525,6 +1579,7 @@ function pintar_form_posts(){
 
     let boton_crear_post = document.createElement('button');
     boton_crear_post.textContent = 'Crear';
+    boton_crear_post.type = 'button';
     boton_crear_post.addEventListener('click', crear_post);
 
     form_post.appendChild(h1_crear_post);
@@ -1545,25 +1600,23 @@ function pintar_form_posts(){
 };
 function crear_post(){
 
-    event.preventDefault();
-
     const valores = {
             usuario_creador: datosUser[0],
             titulo: document.getElementById('titulo_post').value,
             descripcion: document.getElementById('descr_post').value,
             numero_jugadores: document.getElementById('jugad_post').value
         }
-        console.log('hola');
         
         const opciones = {
                 method: 'POST',
                 headers : {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'Authorization': 'JWT ' + localStorage.getItem('access_token')
             },
                 body: JSON.stringify(valores)
         }
         
-        fetch('http://localhost:8000/api/post_detail/' , opciones)  
+        fetch('https://api.rolltwicethedice.es/api/post_detail/' , opciones)  
         .then(response => console.log(response.status));  
 };
 function pintar_login(){
@@ -1618,7 +1671,7 @@ function login (){
     let opciones = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             email: document.getElementById('email').value,
@@ -1626,7 +1679,7 @@ function login (){
         })
     };
 
-    fetch('http://localhost:8000/api/auth/jwt/create/', opciones)
+    fetch('https://api.rolltwicethedice.es/api/auth/jwt/create/', opciones)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -1641,6 +1694,7 @@ function login (){
             
             console.log('Inicio de sesión exitoso');
             borrar_login()
+            location.reload();
             })
             .catch(error => {
             console.error('Error:', error);
@@ -1674,7 +1728,6 @@ function landing_page(){
         document.getElementById('main').removeChild(document.getElementById('footer'));
 
         pintar_login();  
-
         pintarFooter();
     })
 
@@ -1700,3 +1753,4 @@ if(localStorage.getItem('access_token') == null){
 };
 
 // ENVIO DE EMAIL A USUARIOS ACEPTADOS
+ 

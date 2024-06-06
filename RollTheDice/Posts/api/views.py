@@ -2,8 +2,7 @@ from django.shortcuts import render
 from Posts.models import Post
 from rest_framework import viewsets, mixins, filters, views
 from Posts.api.serializers import PostListSerializer, PostDetailSerializer
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 # Create your views here.
 
 

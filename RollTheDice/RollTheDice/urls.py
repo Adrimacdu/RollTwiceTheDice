@@ -21,7 +21,7 @@ from Posts.api.views import PostListViewSet, PostDetailSet
 from PerfilUser.api.views import PerfilDetailSet, PerfilListSet
 from Usuarios.api.views import MyUserListViewSet, CreateUserView, UsuarioPostsView, UsuariolDetailSet, AdminSetUserView
 from rest_framework import routers
-from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet
+from Partidas.api.views import PartidaListViewSet, JugadorListViewSet, JugadorDetailViewSet, PartidalDetailSet, ActualizarJugadorView
 router = routers.DefaultRouter()
 # RUTAS API DEL POST
 router.register(r'post_list', PostListViewSet, basename='post_list')
@@ -48,4 +48,5 @@ urlpatterns = [
     path('auth/users/', CreateUserView.as_view(), name='create_user'),
     path('api/user/posts/', UsuarioPostsView.as_view(), name='user_posts'),
     path('auth/admin/set_user/', AdminSetUserView.as_view(), name='admin_set_user'),
+    path('actualizar_jugador/<int:jugador_id>/', ActualizarJugadorView.as_view(), name='actualizar_jugador'),
 ]
