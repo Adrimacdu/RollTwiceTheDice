@@ -3,6 +3,10 @@
     padding: 0;
     margin: 0;
 }
+button{
+    cursor:pointer;
+}
+
 /*
     HEADER LOGIN
 */
@@ -20,12 +24,16 @@
     flex-direction: row;
     justify-content: space-around;
 }
+#div_nav_header figure{
+    cursor:pointer;
+}
 
 #h2_log_out{
     align-self: center;
     color: white;
     text-decoration: underline;
     font-size: 46px;
+    cursor:pointer;
 }
 
 #h2_header{
@@ -33,6 +41,7 @@
     color: white;
     text-decoration: underline;
     font-size: 46px;
+    cursor:pointer;
 }
 
 /*
@@ -335,6 +344,7 @@
     background: #909090;
     width: 1000px;
     margin: 10px auto;
+    cursor:pointer;
  }
 
  .div_post h2{
@@ -468,6 +478,7 @@
     padding: 10px;
     text-align: center;
     font-size: 20px;
+    cursor:pointer;
 }
 
 /*
@@ -617,6 +628,7 @@
     justify-content: space-around;
     text-align: center;
     padding: 20px;
+    cursor:pointer;
 }
 
 #div_listado_admin div h2{
@@ -653,6 +665,7 @@ width: 70%;
     justify-content: space-around;
     text-align: center;
     padding: 20px;
+    cursor:pointer;
 }
 
 /*
@@ -696,6 +709,7 @@ width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    cursor:pointer;
 }
 
 #div_listado_admin_post div p{
@@ -797,6 +811,7 @@ LIST USER ADMIN
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    cursor:pointer;
 }
 
 

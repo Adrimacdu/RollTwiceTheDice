@@ -109,7 +109,7 @@ function pintar_registro(){
 
     let inputPassword_registro = document.createElement('input');
     inputPassword_registro.id='password_registro';
-    inputPassword_registro.type = 'text';
+    inputPassword_registro.type = 'password';
     
     let labelPassword_registro = document.createElement('label');
     labelPassword_registro.for = 'password_registro';
@@ -1466,15 +1466,17 @@ function pintar_lista_jugadores(lista_jugadores){
 };
 function activar_jugador(id_jugador){
 
+    console.log(typeof id_jugador)
+
     const opciones = {
-            method: 'POST',
+            method: 'GET',
             headers : {
                 'Content-type': 'application/json',
-                'Authorization': 'JWT ' + localStorage.getItem('access_token'),
-                'X-CSRFToken': getCookie('csrftoken')
+                'Authorization': 'JWT ' + localStorage.getItem('access_token')
+                //'X-CSRFToken': getCookie('csrftoken')
         }
     };
-    
+
     fetch('https://api.rolltwicethedice.es/actualizar_jugador/'+id_jugador+'/' , opciones)  
     .then(response => console.log(response.status));  
 };

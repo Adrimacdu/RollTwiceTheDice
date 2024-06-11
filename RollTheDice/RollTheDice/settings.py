@@ -95,7 +95,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:8000', 'http://rolltwicethedice.es', 'https://rolltwicethedice.es', 'https://api.rolltwicethedice.es', 'http://api.rolltwicethedice.es',
+    'http://127.0.0.1:8000','http://127.0.0.1:5500', 'http://rolltwicethedice.es', 'https://rolltwicethedice.es', 'https://api.rolltwicethedice.es', 'http://api.rolltwicethedice.es',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -108,14 +108,9 @@ CORS_ALLOW_METHODS = [
 ]
 
 CORS_ALLOW_HEADERS = [
-    'accept',
     'authorization',
     'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
+    'x-csrftoken'
 ]
 
 SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
@@ -213,9 +208,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'adrianmaciad123@gmail.com'
-EMAIL_HOST_PASSWORD = 'edke iimp cihr ftnt'
-EMAIL_PORT = 587
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = 'adrianmaciad123@gmail.com'
+#EMAIL_HOST_PASSWORD = 'wgcy psco lstg gawx'
+#EMAIL_PORT = 587
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '765aa9e12598c2'
+EMAIL_HOST_PASSWORD = 'fea8121036b7dc'
+EMAIL_PORT = '2525'
+
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

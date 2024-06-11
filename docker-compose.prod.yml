@@ -34,10 +34,6 @@ services:
       - VIRTUAL_HOST=rolltwicethedice.es
     expose:
       - 80
-    
-
-
-
 
   nginx-proxy:
     image: jwilder/nginx-proxy:alpine

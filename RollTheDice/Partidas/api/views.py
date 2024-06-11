@@ -53,7 +53,10 @@ class JugadorDetailViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, m
 
 
 class ActualizarJugadorView(APIView):
-    def post(self, request, jugador_id, format=None):
+
+
+    def get(self, request, jugador_id, format=None):
+        
         jugador = get_object_or_404(Jugador, pk=jugador_id)
         jugador.aceptado = True
         jugador.save()
@@ -62,21 +65,16 @@ class ActualizarJugadorView(APIView):
         partida = jugador.partida
         post = partida.post
         usuario_creador = post.usuario_creador
-        email = usuario_creador.email
+        email_creador = usuario_creador.email
 
         # Enviar correo al jugador
         send_mail(
-            f'¡Has sido aceptado en la partida!',
-            f'Hola, Has sido aceptado en la partida: {post.titulo}, ponte en contacto con {email} para poder comenzar tu aventura',
+            '¡Has sido aceptado en la partida!',
+            f'Hola, Has sido aceptado en la partida: {post.titulo}, ponte en contacto con {email_creador} para poder comenzar tu aventura.',
             'adrianmaciad123@gmail.com',
             [jugador.usuario.email],
             fail_silently=False,
-        ) 
+        )
 
-        response = HttpResponse()
 
-        # Configurar el encabezado Access-Control-Allow-Origin
-        response['Access-Control-Allow-Origin'] = 'https://rolltwicethedice.es'
-
-        # Devolver la respuesta
-        return response
+        return Response({'status': 'jugador aceptado y correos enviados'}, status=status.HTTP_200_OK)
